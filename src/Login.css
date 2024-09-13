@@ -1,0 +1,138 @@
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #000000;
+    padding: 10px;
+  }
+  
+  .login-container {
+    max-width: 400px;
+    width: 100%;
+    margin: 20px;
+    padding: 30px;
+    border: 1px solid #333;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    background-color: #141414;
+    transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  }
+  
+  .login-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ffffff;
+  }
+  
+  .login-container .input-group {
+    margin-bottom: 15px;
+  }
+  
+  .login-container .input-wrapper {
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    align-items: center;
+    background-color: #333;
+    border: 1px solid #555;
+    border-radius: 10px;
+    padding: 10px;
+    transition: border-color 0.3s ease-in-out;
+  }
+  
+  .login-container .input-wrapper:focus-within {
+    border-color: #007bff;
+  }
+  
+  .login-container .input-icon {
+    color: #bbb;
+    margin-right: 10px;
+  }
+  
+  .login-container input[type="email"],
+  .login-container input[type="password"] {
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    color: #fff;
+    outline: none;
+  }
+  
+  .login-container button {
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+    padding: 10px;
+    background-color: #6200EE;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .login-container button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+  }
+  
+  .login-container .error-message {
+    color: red;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  /* Media Queries for responsiveness */
+  @media (max-width: 768px) {
+    .login-container {
+      padding: 20px;
+    }
+  
+    .login-container h2 {
+      font-size: 1.5em;
+    }
+  
+    .login-container button {
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .login-container {
+      padding: 15px;
+    }
+  
+    .login-container h2 {
+      font-size: 1.3em;
+    }
+  
+    .login-container button {
+      font-size: 12px;
+    }
+  }
+
+  .forgot-password {
+    margin-bottom: 15px;
+    text-align: left;
+  }
+  
+  .forgot-password a {
+    font-size: 15px;
+    color: #acacac;
+    text-decoration: none;
+  }
+
+  .register-link {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .register-link a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+
+
+  

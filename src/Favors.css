@@ -1,0 +1,328 @@
+/* General Styles */
+.favors-page {
+    padding: 0;
+    margin: 0;
+  }
+  
+  .search-filters-container {
+    padding: 20px;
+  }
+  
+  .favors-header {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+  
+  .favors-header h1 {
+    font-size: 2rem;
+    margin: 10px 0;
+  }
+  
+  /* Search Section */
+  .search-section2 {
+    margin-bottom: 30px;
+    border-radius: 12px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 20px;
+    gap: 14px;
+    background-color: #111111;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+  
+  .search-input {
+    flex: 1;
+    font-family: "Montserrat", sans-serif;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 25px;
+    border: 2px solid #6200ee;
+    background-color: #121212;
+    color: #e0e0e0;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .search-input:focus {
+    border-color: #6200ee;
+    box-shadow: 0 0 8px rgba(187, 134, 252, 0.5);
+  }
+  
+  .search-button {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 30px;
+    background-color: #6200ee;
+    color: #121212;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  }
+  
+  
+  .search-button:active {
+    background-color: #7a4ec9;
+    transform: scale(0.98);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
+  
+  .search-icon {
+    font-size: 18px;
+  }
+  
+  /* Filter Section */
+  .filter-section {
+    margin-bottom: 20px;
+  }
+  
+  .filter-toggle {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1.1rem;
+    background-color: #111111;
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    transition: border-radius 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .filter-toggle.active {
+    border-radius: 10px 10px 0 0;
+    background-color: #1d1d1d;
+  }
+  
+  .filters {
+    background-color: #111111;
+    padding: 20px;
+    border-radius: 0 0 12px 12px;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+  }
+  
+  .filters.show {
+    max-height: 800px;
+    opacity: 1;
+  }
+  
+  .filters.hide {
+    max-height: 0;
+    opacity: 0;
+  }
+  
+  .filter-group {
+    margin-bottom: 15px;
+  }
+  
+  .filter-group h3 {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    color: #e0e0e0;
+  }
+  
+  .price-filter {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .price-filter input {
+    flex: 1;
+    max-width: 120px;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #444444;
+    background-color: #333333;
+    color: #e0e0e0;
+  }
+  
+  .filter-group label {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    color: #e0e0e0;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .filter-group input[type="checkbox"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #444;
+    border-radius: 4px;
+    background-color: #333;
+    position: relative;
+    margin-right: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  
+  .filter-group input[type="checkbox"]:checked {
+    background-color: #111;
+    border-color: #6200ee;
+  }
+  
+  .filter-group input[type="checkbox"]:checked::after {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    background-color: #6200ee;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .filter-group .category-list {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .filter-group .more-button {
+    text-decoration: none;
+    margin-top: 10px;
+    background-color: #6200ee;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+
+  
+  .filter-group .additional-categories {
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+    max-height: 0;
+    opacity: 0;
+  }
+  
+  .filter-group .additional-categories.show {
+    max-height: 500px;
+    opacity: 1;
+  }
+  
+  .filter-group .additional-categories.hide {
+    max-height: 0;
+    opacity: 0;
+  }
+  
+  .additional-categories {
+    margin-top: 10px;
+  }
+  
+  .more-button {
+    font-family: "Montserrat", sans-serif;
+    width: 50%;
+    background: none;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 0.9rem;
+    text-decoration: underline;
+    transition: color 0.3s ease;
+  }
+  
+  .additional-categories label {
+    display: block;
+    margin-top: 5px;
+  }
+  
+  .additional-categories.show {
+    display: block;
+  }
+  
+  .additional-categories.hide {
+    display: none;
+  }
+  
+  /* Кнопка создания заказа */
+  .create-favor-button {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #6200ee; /* Основной цвет кнопки */
+    color: #000000; /* Цвет текста */
+    border: none;
+    border-radius: 12px; /* Слегка округлённые углы */
+    padding: 12px 24px; /* Увеличенное поле для кнопки */
+    font-size: 16px; /* Размер шрифта */
+    font-weight: 500; /* Немного жирнее текст */
+    font-family: 'Montserrat', sans-serif;
+    text-align: center; /* Выравнивание текста по центру */
+    cursor: pointer; /* Курсор при наведении */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Улучшенная тень для глубины */
+    transition: background-color 0.3s ease, transform 0.1s ease; /* Плавные переходы */
+    display: flex; /* Используем flexbox для центрирования иконки и текста */
+    align-items: center; /* Вертикальное выравнивание элементов */
+    justify-content: center; /* Горизонтальное выравнивание элементов */
+  }
+  
+  .favors-list {
+    padding: 20px;
+  }
+
+  /* Состояние при нажатии */
+  .create-favor-button:active {
+    background-color: #3700b3; /* Тёмный цвет при нажатии */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25); /* Более выраженная тень */
+    transform: scale(0.98); /* Небольшое уменьшение при нажатии */
+  }
+  
+  /* Отключенное состояние */
+  .create-favor-button:disabled {
+    background-color: #d1c4e9; /* Светлый цвет для отключенной кнопки */
+    color: #9e9e9e; /* Цвет текста для отключенной кнопки */
+    cursor: not-allowed; /* Курсор при отключенной кнопке */
+    box-shadow: none; /* Без тени */
+    opacity: 0.6; /* Немного прозрачности для обозначения отключенного состояния */
+  }
+  
+  /* Стиль иконки */
+  .create-favor-icon {
+    font-size: 20px; /* Увеличенный размер иконки */
+    margin-right: 10px; /* Расстояние между иконкой и текстом */
+    color: inherit; /* Иконка наследует цвет текста кнопки */
+  }
+  
+  /* Расположение кнопки */
+  .create-favor-button-container {
+    display: flex;
+    justify-content: center; /* Центрирование кнопки по горизонтали */
+  }
+  
+  .create-favor-button-container .create-favor-button {
+    margin: 0; /* Убираем отступы вокруг кнопки */
+  }
+  
+  /* Media Queries for Responsive Design */
+  @media (min-width: 576px) {
+    .favors-list {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+  
+    .favor-card {
+      flex: 1 1 calc(50% - 20px);
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .favor-card {
+      flex: 1 1 calc(33.33% - 20px);
+    }
+  }
+  

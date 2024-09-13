@@ -1,0 +1,48 @@
+/* DealDetail.css */
+.deal-detail {
+    padding: 20px;
+  }
+  
+  .deal-info {
+    margin-bottom: 20px;
+  }
+  
+  .deal-steps {
+    margin-top: 20px;
+  }
+  
+  .work-phase, .review-phase {
+    margin-top: 20px;
+  }
+  
+  /* Chat.css */
+  .chat {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 20px;
+  }
+  
+  .messages {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+  }
+  
+  .message {
+    padding: 5px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .new-message {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .new-message textarea {
+    resize: none;
+    margin-bottom: 10px;
+  }
+  
+  .new-message input[type="file"] {
+    margin-bottom: 10px;
+  }

@@ -1,0 +1,259 @@
+/* Общие стили */
+.settings-container {
+    padding: 20px;
+    height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Light Theme */
+.settings-container.light {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.settings-container.light .settings-title {
+    color: #6200ee;
+}
+
+.settings-container.light .section-title {
+    color: #333333;
+}
+
+.settings-container.light .setting-item {
+    border-bottom: 1px solid #dddddd;
+}
+
+.settings-container.light .setting-button {
+    background-color: #6200ee;
+    color: #ffffff;
+}
+
+.settings-container.light .setting-button:hover {
+    background-color: #3700b3;
+}
+
+.settings-container.light .switch .slider {
+    background-color: #777;
+}
+
+.settings-container.light .switch input:checked + .slider {
+    background-color: #6200ee;
+}
+
+/* Dark Theme */
+.settings-container.dark {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.settings-container.dark .settings-title {
+    color: hsl(0, 0%, 100%);
+}
+
+.settings-container.dark .section-title {
+    color: #bbbbbb;
+}
+
+.settings-container.dark .setting-item {
+    border-bottom: 1px solid #333333;
+}
+
+.settings-container.dark .setting-button {
+    background-color: #6200ee;
+    color: #ffffff;
+}
+
+.settings-container.dark .setting-button:hover {
+    background-color: #3700b3;
+}
+
+.settings-container.dark .switch .slider {
+    background-color: #777;
+}
+
+.settings-container.dark .switch input:checked + .slider {
+    background-color: #6200ee;
+}
+
+/* Общие стили */
+.settings-title {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.settings-section {
+    margin-bottom: 5px;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #333333;
+    padding-bottom: 10px;
+    cursor: pointer; /* Указатель для кликабельного заголовка */
+}
+
+/* Контент секции */
+.settings-content {
+    padding: 10px 0;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+/* Показ контента при открытой секции */
+.settings-section.open .settings-content {
+    max-height: 500px; /* Увеличьте по необходимости */
+    opacity: 1;
+}
+
+/* Стили для элементов настроек */
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.setting-label {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.setting-button {
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.setting-button:active {
+    transform: scale(0.98);
+}
+
+.setting-value {
+    font-size: 16px;
+}
+
+/* Стили для переключателя */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #777;
+    transition: .4s;
+    border-radius: 20px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #6200ee;
+}
+
+input:checked + .slider:before {
+    transform: translateX(14px);
+}
+
+.settings-section-theme {
+    margin-bottom: 100px;
+}
+
+.logout-button {
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.2s;
+    background-color: #dd0f00;
+    color: #ffffff;
+}
+
+.logout-button:active {
+    transform: scale(0.98);
+}
+
+.avatar-container {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  .avatar-upload {
+    display: none;
+  }
+  
+  .avatar {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #6200ee;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .avatar-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .avatar-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.3s;
+    border-radius: 50%;
+  }
+
+  .overlay-text {
+    color: #ffffff;
+    font-size: 14px;
+    text-align: center;
+  }
+  

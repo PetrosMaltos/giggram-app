@@ -1,0 +1,194 @@
+/* Общие стили */
+.services-page {
+  padding: 20px;
+  background-color: #000;
+  color: #e0e0e0;
+}
+
+.services-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.service-card {
+  border: 2px solid #2c2c2c;
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 300px;
+  width: 100%;
+  text-decoration: none;
+  color: #e0e0e0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.service-icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #6200ee;
+}
+
+.service-content {
+  text-align: center;
+}
+
+.service-card h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  font-family: "Montserrat", sans-serif;
+}
+
+.service-card p {
+  color: #9d9d9d;
+  font-size: 0.9rem;
+  margin-top: 5px;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* Subscription banner */
+.subscription-banner {
+  border: 2px solid #000000;
+  background: linear-gradient(135deg, #00b4cc, #4b00d7, #bc00c6);
+  background-size: 200% 200%;
+  animation: gradientAnimation 5s ease infinite;
+  padding: 60px;
+  border-radius: 15px;
+  text-align: center;
+  margin: 40px 0 100px;
+  box-shadow: 0 8px 16px rgba(140, 39, 255, 0.516);
+  color: #e0e0e0;
+  position: relative;
+  overflow: hidden;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.subscription-content {
+  padding-bottom: 10px;
+  position: relative;
+  z-index: 2;
+}
+
+.subscription-icon {
+  position: relative;
+  font-size: 3rem;
+  color: #ffeb3b;
+  margin-bottom: 10px;
+}
+
+.icon-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ff0000;
+  animation: particleFly 1s ease-out forwards;
+}
+
+@keyframes particleFly {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x), var(--y)) scale(0.5);
+    opacity: 0;
+  }
+}
+
+
+.subscription-content h2 {
+  font-size: 2.2rem;
+  color: #ffffff;
+  margin-bottom: 15px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  display: inline;
+  background: linear-gradient(145deg, #ffeb3b, #ff9800);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subscription-content p {
+  color: #e0e0e0;
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.subscribe-button {
+  background: linear-gradient(145deg, #6200ee, #9a67ea);
+  color: #fff;
+  padding: 10px 25px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-bottom: 0px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+  border: 2px solid transparent;
+}
+
+.subscribe-button:hover {
+  background: linear-gradient(145deg, #9a67ea, #bb86fc);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+  border-color: #bb86fc;
+}
+
+.subscribe-button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+  .subscription-banner {
+    padding: 40px;
+  }
+  .subscription-banner h2 {
+    font-size: 1.8rem;
+  }
+  .subscription-banner p {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .subscription-banner {
+    padding: 20px;
+  }
+  .subscription-banner h2 {
+    font-size: 1.5rem;
+  }
+  .subscription-banner p {
+    font-size: 0.9rem;
+  }
+}

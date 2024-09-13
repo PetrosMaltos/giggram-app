@@ -1,0 +1,89 @@
+/* Основные стили страницы */
+.create-project-page {
+    padding: 20px;
+    background-color: #000000; /* Черный фон страницы */
+    color: #e0e0e0; /* Светлый текст */
+    font-family: 'Montserrat', sans-serif; /* Шрифт Montserrat */
+}
+
+/* Контейнер для формы */
+.create-project-container {
+    max-width: 600px;
+    margin: 0 auto; 
+    background-color: #000000; /* Черный фон контейнера */
+    padding: 15px; /* Увеличенные отступы для контейнера */
+    border-radius: 12px; /* Округлые углы контейнера */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Тень для глубины */
+}
+
+/* Заголовок формы */
+.create-project-container h1 {
+    margin-bottom: 40px;
+    font-size: 1.5rem; /* Увеличенный размер шрифта для заголовка */
+    text-align: center;
+    color: #ffffff; /* Цвет заголовка */
+}
+
+/* Стили формы */
+.create-project-form label {
+    display: block;
+    margin-bottom: 15px;
+    font-weight: 500; /* Жирный текст для яркости */
+    font-size: 1rem; /* Размер шрифта */
+}
+
+.create-project-form input,
+.create-project-form textarea {
+    width: 100%;
+    padding: 14px; /* Увеличенные отступы */
+    border-radius: 8px; /* Более округлые углы */
+    border: 1px solid #444; /* Граница */
+    background-color: #333; /* Фон для полей ввода */
+    color: #e0e0e0; /* Цвет текста */
+    margin-top: 5px;
+    font-family: 'Montserrat', sans-serif; /* Шрифт Montserrat */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3); /* Внутренняя тень */
+}
+
+/* Стили для текстового поля */
+.create-project-form textarea {
+    resize: vertical; /* Возможность вертикального изменения размера */
+    min-height: 100px; /* Минимальная высота текстового поля */
+}
+
+/* Стили для изображения */
+.image-preview {
+    display: block;
+    max-width: 100%;
+    margin-top: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Тень для изображения */
+}
+
+/* Кнопка отправки */
+.submit-button {
+    font-family: 'Montserrat', sans-serif;
+    padding: 14px 24px; /* Увеличенные отступы для кнопки */
+    font-size: 1rem; /* Размер шрифта */
+    border: none;
+    border-radius: 12px; /* Округлые углы */
+    background-color: #6200ee; /* Основной цвет кнопки */
+    color: #ffffff; /* Цвет текста кнопки */
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Плавные переходы */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Тень для кнопки */
+}
+
+/* Эффекты при нажатии */
+.submit-button:active {
+    background-color: #7a4ec9; /* Темнее при нажатии */
+    transform: scale(0.98); /* Уменьшение при нажатии */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Обновленная тень при нажатии */
+}
+
+/* Отключенная кнопка */
+.submit-button:disabled {
+    background-color: #888; /* Серый цвет для отключенной кнопки */
+    cursor: not-allowed; /* Изменение курсора */
+}

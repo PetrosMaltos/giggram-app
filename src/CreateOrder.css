@@ -1,0 +1,106 @@
+/* Основные стили страницы */
+.create-order-page {
+    padding: 20px;
+    background-color: #000000; /* Черный фон страницы */
+    color: #e0e0e0; /* Светлый текст */
+    font-family: 'Montserrat', sans-serif; /* Шрифт Montserrat */
+  }
+  
+  /* Контейнер для формы */
+  .create-order-container {
+    max-width: 600px;
+    margin: 0 auto; 
+    background-color: #000000; /* Черный фон контейнера */
+    padding: 15px; /* Увеличенные отступы для контейнера */
+    border-radius: 12px; /* Округлые углы контейнера */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Тень для глубины */
+  }
+  
+  /* Заголовок формы */
+  .create-order-container h1 {
+    margin-bottom: 40px;
+    font-size: 1.5rem; /* Увеличенный размер шрифта для заголовка */
+    text-align: center;
+    color: #ffffff; /* Цвет заголовка */
+  }
+  
+  /* Стили формы */
+  .create-order-form label {
+    display: block;
+    margin-bottom: 15px;
+    font-weight: 500; /* Жирный текст для яркости */
+    font-size: 1rem; /* Размер шрифта */
+  }
+  
+  .create-order-form input,
+  .create-order-form textarea {
+    width: 100%;
+    padding: 14px; /* Увеличенные отступы */
+    border-radius: 8px; /* Более округлые углы */
+    border: 1px solid #444; /* Граница */
+    background-color: #333; /* Фон для полей ввода */
+    color: #e0e0e0; /* Цвет текста */
+    margin-top: 5px;
+    font-family: 'Montserrat', sans-serif; /* Шрифт Montserrat */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3); /* Внутренняя тень */
+  }
+  
+  /* Стили для текстового поля */
+  .create-order-form textarea {
+    resize: vertical; /* Возможность вертикального изменения размера */
+    min-height: 100px; /* Минимальная высота текстового поля */
+  }
+  
+  /* Кнопка отправки */
+  .submit-button {
+    font-family: 'Montserrat', sans-serif;
+    padding: 14px 24px; /* Увеличенные отступы для кнопки */
+    font-size: 1rem; /* Размер шрифта */
+    border: none;
+    border-radius: 12px; /* Округлые углы */
+    background-color: #6200ee; /* Основной цвет кнопки */
+    color: #ffffff; /* Цвет текста кнопки */
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Плавные переходы */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Тень для кнопки */
+  }
+  
+  
+  /* Эффекты при нажатии */
+  .submit-button:active {
+    background-color: #7a4ec9; /* Темнее при нажатии */
+    transform: scale(0.98); /* Уменьшение при нажатии */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Обновленная тень при нажатии */
+  }
+  
+  /* Сообщения об ошибке и успехе */
+.error-message {
+  color: #e57373; /* Красный цвет для ошибок */
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.success-message {
+  color: #81c784; /* Зеленый цвет для успешного выполнения */
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+/* Стили для выпадающего списка категорий */
+.category-select {
+  width: 100%;
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid #444;
+  background-color: #333;
+  color: #e0e0e0;
+  margin-top: 5px;
+  font-family: 'Montserrat', sans-serif;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.category-select:focus {
+  border-color: #6200ee; /* Цвет границы при фокусе */
+  outline: none; /* Убираем стандартное обводку при фокусе */
+}

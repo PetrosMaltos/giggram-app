@@ -1,0 +1,10 @@
+.my-projects-page {
+    padding: 20px;
+  }
+  
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  

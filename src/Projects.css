@@ -1,0 +1,220 @@
+.projects-page {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh; /* Заполняет весь экран по высоте */
+    background-color: #000000; /* Темный фон */
+  }
+  
+  /* ProjectCard.css */
+.project-card-link {
+  text-decoration: none !important; /* Убирает подчеркивание у ссылки */
+  color: inherit !important; /* Наследует цвет текста от родительского элемента */
+}
+
+  
+  .projects-header {
+    margin-bottom: 5px;
+    color: #fefefe; /* Цвет текста заголовка */
+  }
+  
+  .projects-list {
+    display: flex;
+    flex-wrap: wrap; /* Позволяет карточкам оборачиваться на новую строку */
+    justify-content: center; /* Центрирует карточки по горизонтали */
+    margin: 0; /* Убирает отступы, которые могут смещать карточки */
+    padding: 0; /* Убирает внутренние отступы */
+  }
+  
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #4c4c4c;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #1e1e1e;
+    width: 330px; /* Фиксированная ширина карточки */
+    max-width: 100%; /* Позволяет карточке не выходить за границы контейнера */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  
+  .project-card:last-child {
+    margin-bottom: 100px;
+  }
+
+  .project-image-wrapper {
+    height: 200px; /* Фиксированная высота изображения */
+    overflow: hidden;
+  }
+  
+  .project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Обеспечивает, чтобы изображение заполняло пространство */
+  }
+  
+  .project-details {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Позволяет содержимому занимать оставшееся пространство */
+    white-space: pre-wrap; /* Чтобы текст переносился и не обрезался */
+    overflow-wrap: break-word; /* Разбивать длинные слова для предотвращения переполнения */
+  }
+
+  .author-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .author-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .author-name {
+    font-size: 14px;
+    color: #fefefe;
+  }
+  
+  .project-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #fefefe;
+  }
+  
+  .project-description {
+    font-size: 14px;
+    color: #8a8a8a;
+    margin-bottom: 10px;
+    flex-grow: 1;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+  }
+  
+  /* Стили для кнопки лайка */
+  .like-button {
+    transition: 0.3s;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff2f2f;
+    position: relative;
+    outline: none;
+    user-select: none; /* Убирает выделение текста при клике */
+    -webkit-tap-highlight-color: transparent; /* Убирает выделение на мобильных */
+  }
+  
+  .like-button:active {
+    transition: 0.3s;
+    background: none;
+    border: none;
+    box-shadow: none;
+  }
+  
+  .like-button .like-count {
+    transition: 0.3s;
+    font-size: 14px;
+    margin-left: 8px;
+  }
+  
+  .like-icon {
+    transition: transform 0.3s ease-in-out; /* Плавное увеличение при нажатии */
+  }
+  
+  /* Анимация для увеличения иконки лайка */
+  .like-button.liked .like-icon {
+    transition: 0.3s;
+    transform: scale(1.1); /* Увеличение иконки */
+  }
+  
+  /* Убираем анимацию назад после клика */
+  .like-button .like-icon {
+    transition: 0.2s;
+    transform: scale(1); /* Возвращение к исходному размеру */
+  }
+
+  .search-section3 {
+    margin-bottom: 30px;
+    border-radius: 12px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 20px;
+    gap: 14px;
+    background-color: #111111;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  }
+
+
+  /* Кнопка создания заказа */
+  .create-project-button {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #6200ee; /* Основной цвет кнопки */
+    color: #000000; /* Цвет текста */
+    border: none;
+    border-radius: 12px; /* Слегка округлённые углы */
+    padding: 12px 24px; /* Увеличенное поле для кнопки */
+    font-size: 16px; /* Размер шрифта */
+    font-weight: 500; /* Немного жирнее текст */
+    font-family: 'Montserrat', sans-serif;
+    text-align: center; /* Выравнивание текста по центру */
+    cursor: pointer; /* Курсор при наведении */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Улучшенная тень для глубины */
+    transition: background-color 0.3s ease, transform 0.1s ease; /* Плавные переходы */
+    display: flex; /* Используем flexbox для центрирования иконки и текста */
+    align-items: center; /* Вертикальное выравнивание элементов */
+    justify-content: center; /* Горизонтальное выравнивание элементов */
+  }
+  
+  /* Состояние при нажатии */
+  .create-project-button:active {
+    background-color: #3700b3; /* Тёмный цвет при нажатии */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25); /* Более выраженная тень */
+    transform: scale(0.98); /* Небольшое уменьшение при нажатии */
+  }
+  
+  /* Отключенное состояние */
+  .create-project-button:disabled {
+    background-color: #d1c4e9; /* Светлый цвет для отключенной кнопки */
+    color: #9e9e9e; /* Цвет текста для отключенной кнопки */
+    cursor: not-allowed; /* Курсор при отключенной кнопке */
+    box-shadow: none; /* Без тени */
+    opacity: 0.6; /* Немного прозрачности для обозначения отключенного состояния */
+  }
+  
+  /* Стиль иконки */
+  .create-project-icon {
+    font-size: 20px; /* Увеличенный размер иконки */
+    margin-right: 10px; /* Расстояние между иконкой и текстом */
+    color: inherit; /* Иконка наследует цвет текста кнопки */
+  }
+  
+  /* Расположение кнопки */
+  .create-project-button-container {
+    display: flex;
+    justify-content: center; /* Центрирование кнопки по горизонтали */
+  }
+  
+  .create-project-button-container .create-project-button {
+    margin-bottom:  40px; /* Убираем отступы вокруг кнопки */
+  }

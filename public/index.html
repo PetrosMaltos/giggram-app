@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="stylesheet" href="index.css">
+    <meta name="description" content="Web site created using create-react-app" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <script async src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <title>GigGram</title>
+    
+    <!-- Подключите Telegram Web App SDK -->
+    <script async src="https://telegram.org/js/telegram-widget.js?7"
+        data-telegram-login="GigGram_bot"
+        data-size="large"
+        data-radius="10"
+        data-auth-url="https://4f4e-2a01-540-66ef-2b00-7096-35fe-519f-aa90.ngrok-free.app/auth/telegram"
+        data-request-access="write"></script>
+
+
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script src="/src/index.js"></script>
+  </body>
+</html>

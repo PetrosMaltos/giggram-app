@@ -1,0 +1,115 @@
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Центрирование карточек по горизонтали */
+  gap: 20px; /* Расстояние между карточками */
+  width: 100%;
+  max-width: 800px; /* Максимальная ширина контейнера */
+  margin: 0 auto; /* Автоматическое выравнивание по центру */
+  padding: 10px; /* Отступы внутри контейнера */
+}
+
+.order-card { 
+  border: 2px solid #2c2c2c;
+  background-color: #1e1e1e; /* Более темный фон для контраста */
+  border-radius: 10px;
+  padding: 15px; /* Уменьшил отступы для мобильных устройств */
+  width: 100%; /* Ширина карточки по умолчанию */
+  max-width: 300px; /* Максимальная ширина карточки */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6); /* Глубокая тень для акцента */
+  transition: box-shadow 0.3s ease, transform 0.3s ease; /* Плавные переходы */
+  text-align: center; /* Центрирование текста внутри карточки */
+  margin: 0; /* Убедитесь, что отступы вокруг карточки равны нулю */
+}
+
+/* Остальные стили остаются без изменений */
+.order-header {
+  display: flex;
+  flex-direction: column; /* Вертикальное выравнивание для мобильных устройств */
+  align-items: center;
+}
+
+.order-title {
+  font-size: 1rem; /* Уменьшил размер шрифта для мобильных устройств */
+  margin: 0;
+  color: #e0e0e0; /* Светлый текст для контраста */
+}
+
+.order-status {
+  font-size: 0.8rem; /* Уменьшил размер шрифта для мобильных устройств */
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #ffffff; /* Цвет текста для контраста */
+  margin-top: 5px; /* Отступ сверху от заголовка */
+  margin-bottom: 10px;
+}
+
+.order-status.assigned {
+  color: #4caf50; /* Зеленый для назначенных заказов */
+}
+
+.order-status.not-assigned {
+  color: #f44336; /* Красный для неназначенных заказов */
+}
+
+.order-description {
+  margin: 10px 0;
+  color: #b0b0b0; /* Немного светлее текст для читаемости */
+  font-size: 0.85rem; /* Уменьшил размер шрифта для мобильных устройств */
+}
+
+.toggle-description {
+  font-family: 'Montserrat', sans-serif;
+  background: none;
+  border: none;
+  color: #6200ee;
+  cursor: pointer;
+  font-size: 0.8rem; /* Уменьшил размер шрифта для кнопки */
+}
+
+.order-info {
+  display: flex;
+  flex-direction: column; /* Вертикальное выравнивание */
+  margin: 10px 0;
+  font-size: 0.8rem; /* Уменьшил размер шрифта для мобильных устройств */
+  color: #b0b0b0; /* Светлый текст для иконок и информации */
+}
+
+.order-info-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.order-icon {
+  margin-right: 5px; /* Уменьшил расстояние между иконкой и текстом */
+  color: #6200ee; /* Цвет иконок для соответствия теме */
+}
+
+.order-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.order-tag {
+  border-radius: 5px;
+  border: 1px solid rgb(92, 92, 92);
+  padding: 5px 8px;
+  color: #575757;
+  font-size: 0.7rem;
+}
+
+.order-price {
+  font-size: 0.85rem; /* Уменьшил размер шрифта для мобильных устройств */
+}
+
+/* Медиа-запросы для улучшения адаптивности */
+@media (min-width: 600px) {
+  .order-card {
+    padding: 20px; /* Увеличение отступов на более широких экранах */
+    max-width: 300px; /* Максимальная ширина для средних и больших экранов */
+  }
+}

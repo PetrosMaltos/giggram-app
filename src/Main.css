@@ -1,0 +1,301 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+  background-color: #000000;
+  color: #e0e0e0;
+  overflow: auto;
+}
+
+/* Главный стиль для страницы */
+.main-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #000;
+  color: #e0e0e0;
+}
+
+/* Заголовок страницы */
+.main-header {
+  padding: 40px 20px;
+  text-align: center;
+  background: #000;
+}
+
+/* Заголовок и текст в header */
+.main-header .gradient-text {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #eeff05, #ee0000, #03a9f4, #6200f4);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.main-header h1 {
+  font-size: 1.9rem;
+  margin-bottom: 10px;
+}
+
+.main-header p {
+  font-size: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Раздел для поиска */
+.search-section-main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 20px;
+  gap: 14px;
+  background-color: #0a0a0a;
+  position: relative;
+}
+
+/* Поле ввода */
+.search-input {
+  width: 100%;
+  font-family: "Montserrat", sans-serif;
+  padding: 10px 20px;
+  font-size: 1.05rem;
+  border-radius: 25px;
+  border: 2px solid #6200ee;
+  max-width: 70%;
+  background-color: #121212;
+  color: #e0e0e0;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  margin: 0 15px; /* Добавляем больше отступов по бокам */
+}
+
+/* Кнопка поиска */
+.search-button {
+  display: flex;
+  align-items: center;
+  padding: 14px 14px;
+  font-size: 1.05rem;
+  border: none;
+  border-radius: 30px;
+  background-color: #6200ee;
+  color: #121212;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.search-button:active {
+  background-color: #7a4ec9;
+  transform: scale(0.98);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.search-icon {
+  font-size: 18px;
+}
+
+.search-dropdown {
+  position: absolute;
+  top: calc(100% + 16px); /* Добавляем отступ вниз */
+  left: 0;
+  width: calc(100% - 30px); /* Учитываем отступы по бокам */
+  background-color: #1e1e1e;
+  border: 1px solid #6200ee;
+  border-radius: 12px;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+  padding: 8px;
+  opacity: 0; /* Начальное состояние невидимо */
+  transform: translateY(-20px); /* Начальное смещение вверх */
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Анимация */
+}
+
+/* Стиль для элементов результата поиска */
+.search-result-item {
+  padding: 10px;
+  cursor: pointer;
+  color: #e0e0e0;
+  border-bottom: 1px solid #333;
+  transition: background-color 0.3s ease;
+}
+
+.search-result-item:hover {
+  background-color: #333;
+}
+
+/* Стиль для пользователей */
+.search-result-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.search-username {
+  font-weight: bold;
+  margin: 0;
+}
+
+.search-description {
+  color: #aaa;
+  margin: 0;
+}
+
+/* Стиль для заказов */
+.search-result-order {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-order-title {
+  font-weight: bold;
+  margin: 0;
+}
+
+.search-order-details {
+  color: #aaa;
+  margin: 0;
+}
+
+/* Разделы на странице */
+.categories-section, .services-section, .featured-orders-section {
+  padding: 20px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.main-list, .categories-list, .services-list {
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.main-list > div {
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  flex: 1; /* Ensure that each order card takes up available space */
+}
+
+/* Карточки */
+.order-card, .category-card, .service-card {
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 330px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+  .search-input {
+    max-width: 100%;
+  }
+
+  .search-button {
+    font-size: 0.9rem;
+  }
+
+  .search-dropdown {
+    width: calc(100% - 20px); /* Учитываем отступы по бокам */
+    left: 10px; /* Центрируем dropdown */
+    opacity: 1; /* Сделать видимым при открытии */
+    transform: translateY(0); /* Вернуть в исходное положение */
+  }
+}
+
+@media (max-width: 480px) {
+  .main-header {
+    padding: 20px 10px;
+  }
+
+  .search-input {
+    font-size: 0.9rem;
+  }
+
+  .search-button {
+    padding: 10px;
+  }
+
+  .search-result-user, .search-result-order {
+    font-size: 0.9rem;
+  }
+}
+
+.new-messages-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 5px;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+/* Chat.css */
+
+/* Адаптивные стили для мобильных устройств */
+@media (max-width: 480px) {
+  .chat-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .chat-info h1 {
+    font-size: 1.2rem;
+  }
+
+  .message-input {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .message-input input {
+    font-size: 0.8rem;
+    padding: 10px;
+  }
+
+  .message-input button {
+    font-size: 1.1rem;
+    margin-left: 0;
+    margin-top: 10px;
+  }
+
+  .message-body img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+.no-orders-message {
+  color: #888;
+  font-size: 0.9rem;
+  text-align: center;
+  font-style: italic;
+}
+
+.no-orders-emoji {
+  font-size: 30px;
+}

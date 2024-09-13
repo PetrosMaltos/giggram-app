@@ -1,0 +1,10 @@
+.my-services-page {
+    padding: 20px;
+  }
+  
+  .services-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  

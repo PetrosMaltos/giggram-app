@@ -1,0 +1,37 @@
+.logo-animation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 140px; /* Высота контейнера */
+  background-color: #000000; /* Фон контейнера для контраста */
+  border-radius: 50%; /* Округление фона для стиля */
+  padding: 0px; /* Отступ внутри контейнера */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Тень для дополнительного эффекта */
+}
+
+.animated-logo {
+  width: 200px; /* Ширина логотипа */
+  height: auto;
+  animation: colorChange 5s infinite ease-in-out;
+}
+
+@keyframes wave {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.1) rotate(5deg);
+  }
+}
+
+@keyframes colorChange {
+  0% {
+    filter: hue-rotate(0deg) brightness(1);
+  }
+  50% {
+    filter: hue-rotate(180deg) brightness(1.2);
+  }
+  100% {
+    filter: hue-rotate(0deg) brightness(1);
+  }
+}

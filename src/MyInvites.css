@@ -1,0 +1,88 @@
+/* MyInvites.css */
+
+.my-invites-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: #000000;
+  color: #ffffff;
+  border-radius: 8px;
+}
+
+.invites-header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.invites-header h1 {
+  font-size: 24px;
+  color: #fff;
+}
+
+.invites-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.invite-item {
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #2b2b2b;
+  color: #ddd;
+  transition: transform 0.3s ease;
+}
+
+
+.invite-item-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.invite-item-message {
+  font-size: 16px;
+  color: #bbb;
+}
+
+.invite-item-status, .invite-item-sender, .invite-item-date {
+  font-size: 14px;
+  color: #999;
+}
+
+.no-invites-message {
+  text-align: center;
+  font-size: 16px;
+  color: #777;
+}
+
+.invite-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.action-icon {
+  cursor: pointer;
+  font-size: 30px;
+  padding: 10px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.accept-icon {
+  color: white;
+  background: linear-gradient(135deg, #00c853, #b2ff59);
+}
+
+.reject-icon {
+  color: white;
+  background: linear-gradient(135deg, #d32f2f, #ff5252);
+}
+
+.action-icon:active {
+  transform: scale(1.05);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}

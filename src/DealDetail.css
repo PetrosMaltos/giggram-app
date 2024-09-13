@@ -1,0 +1,251 @@
+
+
+.deal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.main-title {
+  font-size: 25px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.steps-nav {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 600px;
+  border-bottom: 2px solid #6200ff;
+  margin-bottom: 20px;
+}
+
+.step {
+  flex: 1;
+  text-align: center;
+  padding: 15px;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  border-radius: 10px 10px 0 0;
+  background-color: #000000;
+}
+
+.step {
+  outline: none;
+  box-shadow: none;
+  user-select: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  touch-action: manipulation;
+}
+
+.step:focus,
+.step:active,
+.step:focus-within {
+  outline: none;
+  box-shadow: none;
+}
+
+
+.step.active {
+  background-color: #6200ff;
+  color: white;
+  font-weight: bold;
+  transform: scale(1.02);
+}
+
+.deal-info {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  background-color: #181818;
+  border: 1px solid #323232;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.deal-title {
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.deal-details {
+  font-size: 16px;
+  color: #a3a3a3;
+}
+
+.detail-item {
+  margin-bottom: 10px;
+}
+
+.detail-label {
+  font-weight: bold;
+}
+
+.reward-amount {
+  color: #ff4081;
+  font-weight: bold;
+  font-size: 16px;
+  background: linear-gradient(45deg, #5640ff, #80a8ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.deal-requirements {
+  color: #ffffff;
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  background-color: #181818;
+  border: 1px solid #323232;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.requirements-title {
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.requirements-text {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #a3a3a3;
+}
+
+.messages {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.messages-title {
+  ffont-size: 22px;
+  margin-bottom: 15px;
+}
+
+.message {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.history {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.history-title {
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.history-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.history-item {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.history-date {
+  font-weight: bold;
+}
+
+.start-button-container {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.start-button {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  padding: 12px 50px;
+  color: #fff;
+  background: linear-gradient(45deg, #6200ff, #9940ff);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  margin-top: 10px;
+}
+
+.start-button:hover {
+  background: linear-gradient(45deg, #5000cc, #e7407b);
+  transform: scale(1.05);
+}
+
+.start-button:active {
+  background: linear-gradient(45deg, #3d00a2, #c12a6c);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transform: scale(0.98);
+}
+
+/* Стили для прогресс-бара */
+.progress {
+  width: 100%;
+  max-width: 600px;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  height: 20px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+/* Стили для прикрепленных файлов */
+.files {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  background-color: #181818;
+  border: 1px solid #323232;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.files-title {
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+.files-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.file-link {
+  color: #6200ff;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.file-link:hover {
+  text-decoration: underline;
+}
+
+.start-button:disabled {
+  background: #333; /* Тёмный цвет для заблокированной кнопки */
+  color: #777; /* Тусклый цвет текста */
+  cursor: not-allowed; /* Курсор в виде запрещающего знака */
+  box-shadow: none; /* Убираем тени, чтобы визуально отличать от активной кнопки */
+  transform: none; /* Убираем эффект нажатия */
+}
+

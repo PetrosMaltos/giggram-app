@@ -1,0 +1,115 @@
+
+.payment-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    color: white;
+  }
+  
+  .main-title {
+    font-size: 25px;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .steps-nav {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 50px;
+  }
+
+  .step {
+    outline: none;
+    box-shadow: none;
+    user-select: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    touch-action: manipulation;
+  }
+  
+  .step:focus,
+  .step:active,
+  .step:focus-within {
+    outline: none;
+    box-shadow: none;
+  }
+  
+
+  
+  .block-payment {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    background-color: #181818;
+    border: 1px solid #323232;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.5; /* Увеличивает межстрочный интервал */
+  }
+  
+  .block-payment h2 {
+    font-size: 20px;
+    margin-bottom: 10px; /* Добавляет пространство под заголовком */
+  }
+
+  .block-payment p {
+    color: #a3a3a3;
+  }
+  
+  .deal-info {
+    
+    width: 100%;
+    max-width: 600px;
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+
+  .deal-info h2 {
+    font-size: 20px;
+    margin-bottom: 25px;
+  }
+
+  .deal-info p {
+    color: #a3a3a3;
+  }
+  
+  .freeze-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .freeze-button {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    padding: 12px 30px;
+    color: white;
+    background: linear-gradient(45deg, #00bfff, #1e90ff);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center; /* Центрируем содержимое по горизонтали */
+    align-items: center; /* Центрируем содержимое по вертикали */
+    transition: background 0.3s ease;
+  }
+  
+  .freeze-button:hover {
+    background: linear-gradient(45deg, #00aaff, #1c7ed6);
+  }
+  
+  .snowflake-icon {
+    width: 18px;
+    height: 18px;
+    margin-left: 10px;
+    vertical-align: middle; /* Выровнять иконку по тексту */
+  }
+  

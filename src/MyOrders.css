@@ -1,0 +1,10 @@
+.my-orders-page {
+    padding: 20px;
+  }
+  
+  .orders-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  

@@ -1,0 +1,13 @@
+
+.project-card {
+  position: relative; /* Чтобы кнопка лайка не влияла на расположение карточки */
+}
+
+.project-card .like-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}

@@ -1,0 +1,103 @@
+.specialist-card {
+  background-color: #1e1e1e;
+  color: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  width: 250px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  overflow: hidden;
+}
+
+.specialist-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.specialist-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.specialist-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.specialist-category {
+  font-size: 0.9rem;
+  color: #bbb;
+  margin: 4px 0;
+}
+
+.specialist-description {
+  font-size: 0.9rem;
+  color: #ddd;
+  margin: 8px 0;
+  line-height: 1.4;
+}
+
+.specialist-tags {
+  margin: 8px 0;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.specialist-tag {
+  background-color: #333;
+  color: #e0e0e0;
+  border-radius: 12px;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  border: 1px solid #6200ee;
+  white-space: nowrap;
+}
+
+.specialist-rating {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #ffcc00;
+  margin: 8px 0;
+}
+
+.star-icon {
+  margin-right: 4px;
+}
+
+.specialist-price {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #6200ee;
+  margin-top: 8px;
+}
+
+/* Media queries for mobile responsiveness */
+@media (max-width: 600px) {
+  .specialist-card {
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+  }
+
+  .specialist-avatar {
+      width: 60px;
+      height: 60px;
+  }
+
+  .specialist-info {
+      text-align: center;
+  }
+
+  .specialist-name {
+      font-size: 1rem;
+  }
+}
