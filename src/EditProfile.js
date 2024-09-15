@@ -107,6 +107,7 @@ const EditProfile = () => {
     };
   }, []);
 
+
   return (
     <div className="edit-profile-page">
       <div className="edit-profile-content">

@@ -19,7 +19,7 @@ const MyDeals = () => {
           if (userSnap.exists()) {
             const userData = userSnap.data();
             setUserRole(userData.role);
-  
+
             let q;
             if (userData.role === 'freelancer') {
               q = query(collection(db, 'deals'), where('freelancerId', '==', user.uid));
@@ -29,7 +29,7 @@ const MyDeals = () => {
               console.error('Неизвестная роль пользователя');
               return;
             }
-  
+
             const querySnapshot = await getDocs(q);
             const dealsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             setDeals(dealsData);
@@ -41,10 +41,10 @@ const MyDeals = () => {
         setLoading(false);
       }
     };
-  
+
     fetchDeals();
   }, []);
-  
+
   useEffect(() => {
     if (window.Telegram && window.Telegram.WebApp) {
       window.Telegram.WebApp.BackButton.show();
@@ -77,7 +77,7 @@ const MyDeals = () => {
         {deals.map((deal) => (
           <Link to={`/deal/${deal.id}`} key={deal.id} className="deal-item">
             <h2>{deal.projectTitle}</h2>
-            <p>Этап: {deal.stage}</p>
+            <p>Этап: {deal.stage || 'Не указан'}</p> {/* Добавляем отображение этапа */}
             <p>Цена: {deal.price} руб.</p>
             <p>Статус: {deal.status === 'completed' ? 'Завершена' : 'В процессе'}</p>
             <p>Оплата: {deal.paymentStatus === 'frozen' ? 'Заморожена' : 'Ожидание'}</p>

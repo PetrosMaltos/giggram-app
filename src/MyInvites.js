@@ -5,12 +5,14 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import Loading from './components/Loading';
 import { useNavigate } from 'react-router-dom';
+import { deleteDoc } from 'firebase/firestore';
 import './MyInvites.css';
 
 const MyInvites = () => {
   const [invites, setInvites] = useState([]);
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState(null);
+  const [creatorMap, setCreatorMap] = useState({}); // Хранение данных создателей заказов
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,6 +23,18 @@ const MyInvites = () => {
         const querySnapshot = await getDocs(q);
         const invitesList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
         setInvites(invitesList);
+
+        // Получение данных создателей заказов
+        const creatorIds = Array.from(new Set(invitesList.map(invite => invite.createdBy)));
+        const creators = {};
+        for (const id of creatorIds) {
+          const creatorRef = doc(db, 'users', id);
+          const creatorSnap = await getDoc(creatorRef);
+          if (creatorSnap.exists()) {
+            creators[id] = creatorSnap.data();
+          }
+        }
+        setCreatorMap(creators);
       } catch (error) {
         console.error('Ошибка при получении приглашений:', error);
       } finally {
@@ -53,41 +67,46 @@ const MyInvites = () => {
       const inviteRef = doc(db, 'invites', inviteId);
       const inviteSnap = await getDoc(inviteRef);
       const inviteData = inviteSnap.data();
-
+  
       if (!inviteData) {
         console.error('Приглашение не найдено');
         return;
       }
-
+  
       const newDeal = {
         freelancerId: inviteData.userId,
         projectTitle: inviteData.projectTitle,
         status: 'in-progress',
         paymentStatus: 'frozen',
+        stage: 'Заказ', // Добавляем начальный этап
         createdAt: new Date(),
       };
-
+  
       const dealsRef = collection(db, 'deals');
       const docRef = await addDoc(dealsRef, newDeal);
-
+  
       await updateDoc(inviteRef, { status: 'accepted' });
-
+  
       navigate(`/deal/${docRef.id}`);
     } catch (error) {
       console.error('Ошибка при принятии приглашения:', error);
     }
   };
-
+  
   const handleReject = async (inviteId) => {
     try {
+      // Удаляем приглашение из Firestore
       const inviteRef = doc(db, 'invites', inviteId);
-      await updateDoc(inviteRef, { status: 'rejected' });
-      setInvites(invites.filter(invite => invite.id !== inviteId)); 
+      await deleteDoc(inviteRef);
+  
+      // Удаляем приглашение из состояния
+      setInvites(prevInvites => prevInvites.filter(invite => invite.id !== inviteId));
     } catch (error) {
       console.error('Ошибка при отклонении приглашения:', error);
     }
   };
-
+  
+  
   useEffect(() => {
     if (window.Telegram && window.Telegram.WebApp) {
       window.Telegram.WebApp.BackButton.show();
@@ -125,7 +144,7 @@ const MyInvites = () => {
               <h2 className="invite-item-title">{invite.projectTitle}</h2>
               <p className="invite-item-message">{invite.message}</p>
               <p className="invite-item-status">Статус: {invite.status}</p>
-              <p className="invite-item-sender">Отправитель: {invite.senderName}</p>
+              <p className="invite-item-sender">Отправитель: {invite.senderName || 'Неизвестный отправитель'}</p> {/* Исправлено */}
               <p className="invite-item-date">Дата: {new Date(invite.createdAt.seconds * 1000).toLocaleDateString()}</p>
               <div className="invite-actions">
                 <FaCheck 

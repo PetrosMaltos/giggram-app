@@ -44,9 +44,19 @@ const DealDetail = () => {
     { name: 'Техническое задание.docx', url: '#' },
   ];
 
-  const handleStartClick = () => {
-    navigate('/deal/${dealId}/payment'); // Переход на страницу оплаты
+  const handleStartClick = async () => {
+    try {
+      // Обновление этапа сделки на 'Оплата'
+      await updateDoc(doc(db, 'deals', dealId), {
+        stage: 'Оплата',
+      });
+  
+      navigate(`/deal/${dealId}/payment`); // Переход на страницу оплаты
+    } catch (error) {
+      console.error('Ошибка при обновлении этапа сделки:', error);
+    }
   };
+  
 
   return (
     <div className="deal-container">

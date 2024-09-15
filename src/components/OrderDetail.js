@@ -156,14 +156,17 @@ const OrderDetail = () => {
       }
   
       const inviteRef = doc(db, 'invites', `${orderData.clientId}_${response.userId}_${id}`);
-      await setDoc(inviteRef, {
+      const inviteData = {
         userId: response.userId,
         projectTitle: orderData.title,
         message: `Вы были приглашены на работу по заказу "${orderData.title}"`,
         status: 'Pending',
         orderId: id,
-        createdAt: new Date()
-      });
+        createdAt: new Date(),
+        senderName: userData.username // добавляем имя отправителя
+      };
+  
+      await setDoc(inviteRef, inviteData);
   
       // Обновляем статус отклика и заказа
       await updateDoc(orderRef, { acceptedResponse: response, status: 'in-progress', paymentStatus: 'frozen' });
@@ -172,6 +175,7 @@ const OrderDetail = () => {
       console.error('Ошибка принятия отклика:', error);
     }
   };
+  
   
   useEffect(() => {
     if (window.Telegram && window.Telegram.WebApp) {

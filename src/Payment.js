@@ -14,9 +14,18 @@ const Payment = ({ dealId }) => {
     deadlines: '10 дней',
   };
 
-  const handleFreezeClick = () => {
-    console.log('Средства заморожены');
+  const handleFreezeClick = async () => {
+    try {
+      // Обновление этапа сделки на 'Оплата'
+      await updateDoc(doc(db, 'deals', dealId), {
+        stage: 'Оплата',
+      });
+      console.log('Средства заморожены и этап обновлен');
+    } catch (error) {
+      console.error('Ошибка при замораживании средств:', error);
+    }
   };
+  
 
   // Отправляем на сервер текущий этап сделки
   useEffect(() => {

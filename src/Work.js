@@ -21,24 +21,20 @@ const Work = ({ dealId }) => {
     }
   };
 
-  // Отправляем на сервер текущий этап сделки
   useEffect(() => {
     const updateDealStage = async () => {
       try {
-        await fetch('/api/update-deal-stage', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ dealId, stage: 'Работа' }),
+        await updateDoc(doc(db, 'deals', dealId), {
+          stage: 'Работа',
         });
       } catch (error) {
         console.error('Ошибка при обновлении этапа сделки:', error);
       }
     };
-
+  
     updateDealStage();
   }, [dealId]);
+  
 
   return (
     <div className="work-container">
