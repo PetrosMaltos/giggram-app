@@ -1,11 +1,10 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom'; // Импортируем useNavigate для навигации
-import './Payment.css'; // Используем отдельный файл стилей
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; 
+import './Payment.css'; 
 import { FaRegSnowflake } from "react-icons/fa";
 
-
-const Payment = () => {
-  const navigate = useNavigate(); // Инициализируем useNavigate
+const Payment = ({ dealId }) => {
+  const navigate = useNavigate();
 
   const dealInfo = {
     title: 'Название заказа',
@@ -16,10 +15,27 @@ const Payment = () => {
   };
 
   const handleFreezeClick = () => {
-    // Логика заморозки средств
     console.log('Средства заморожены');
   };
 
+  // Отправляем на сервер текущий этап сделки
+  useEffect(() => {
+    const updateDealStage = async () => {
+      try {
+        await fetch('/api/update-deal-stage', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ dealId, stage: 'Оплата' }),
+        });
+      } catch (error) {
+        console.error('Ошибка при обновлении этапа сделки:', error);
+      }
+    };
+
+    updateDealStage();
+  }, [dealId]);
   return (
     <div className="payment-container">
       <h1 className="main-title">Оплата заказа</h1>

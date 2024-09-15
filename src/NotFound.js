@@ -1,11 +1,18 @@
-// NotFound.js
 import React from 'react';
+import { Link } from 'react-router-dom'; // Используйте, если вы используете React Router
+import './NotFound.css';
 
 const NotFound = () => {
   return (
-    <div>
-      <h1>404 - Страница не найдена</h1>
-      <p>Извините, страница, которую вы ищете, не существует.</p>
+    <div id="oopss">
+      <div id="error-text">
+        <img 
+          src="https://cdn.rawgit.com/ahmedhosna95/upload/1731955f/sad404.svg" 
+          alt="404"
+        />
+        <span>404 PAGE</span>
+        <Link to='/main' className="back">На главную</Link>
+      </div>
     </div>
   );
 };

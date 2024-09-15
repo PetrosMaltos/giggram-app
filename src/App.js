@@ -40,6 +40,7 @@ import Work from './Work';
 import Review from './Review';
 import Payment from './Payment';
 import PaymentOrder from './PaymentOrder';
+import EditPassword from './components/EditPassword';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -97,10 +98,11 @@ const App = () => {
             <Route path="/my-invites" element={<MyInvites />} />
             <Route path="/my-deals" element={<MyDeals />} />
             <Route path="/deal/:dealId" element={<DealDetail />} />
-            <Route path="/work" element={<Work />} />
-            <Route path="/payment" element={<Payment />} />
-            <Route path="/review" element={<Review />} />
+            <Route path="/deal/:dealId/work" element={<Work />} />
+            <Route path="/deal/:dealId/review" element={<Review />} />
+            <Route path="/deal/:dealId/payment" element={<Payment />} />
             <Route path="/payment-order" element={<PaymentOrder />} />
+            <Route path="/editpassword" element={<EditPassword />} />
           </Routes>
         )}
       </Router>

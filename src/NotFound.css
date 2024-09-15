@@ -1,0 +1,138 @@
+#oopss {
+    background: linear-gradient(-45deg, #5b00ee, #6f00ff);
+    position: fixed;
+    left: 0px;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    line-height: 1.5em;
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #error-text {
+    font-size: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Monstserrat', sans-serif;
+    color: #ffffff;
+    direction: rtl;
+    text-align: center;
+  }
+  
+  #error-text img {
+    margin: 20px auto;
+    max-height: 50vh; /* Ограничение высоты изображения */
+    width: auto;
+  }
+  
+  #error-text span {
+    font-family: 'Monstserrat', sans-serif;
+    position: relative;
+    font-size: 3.3em;
+    font-weight: 900;
+    margin-bottom: 20px;
+  }
+  
+  #error-text p.p-a {
+    font-weight: 600;
+    font-family: 'Monstserrat', sans-serif;
+    font-size: 19px;
+    margin-bottom: 5px;
+  }
+  
+  #error-text p.p-b {
+    font-family: 'Monstserrat', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+  }
+  
+  #error-text .back {
+    font-family: 'Monstserrat', sans-serif;
+    color: #000;
+    font-size: 18px;
+    text-decoration: none;
+    margin: 2em auto 0;
+    padding: 30px;
+    border-radius: 50px;
+    background: #ffffff;
+    font-weight: 700;
+    transition: all 300ms ease;
+  }
+  
+  #error-text .back:hover {
+    transform: translateY(-13px);
+    box-shadow: 0 35px 90px 4px rgba(0, 0, 0, 0.3), inset 0px 0 0 3px #000;
+  }
+  
+  @font-face {
+    font-family: 'Monstserrat', sans-serif;
+    src: url("https://cdn.rawgit.com/ahmedhosna95/upload/ba6564f8/fonts/Shabnam/Shabnam-Bold.eot");
+    src: url("https://cdn.rawgit.com/ahmedhosna95/upload/ba6564f8/fonts/Shabnam/Shabnam-Bold.eot?#iefix") format("embedded-opentype"),
+         url("https://cdn.rawgit.com/ahmedhosna95/upload/ba6564f8/fonts/Shabnam/Shabnam-Bold.woff") format("woff"),
+         url("https://cdn.rawgit.com/ahmedhosna95/upload/ba6564f8/fonts/Shabnam/Shabnam-Bold.woff2") format("woff2"),
+         url("https://cdn.rawgit.com/ahmedhosna95/upload/ba6564f8/fonts/Shabnam/Shabnam-Bold.ttf") format("truetype");
+    font-weight: bold;
+  }
+  
+  @font-face {
+    font-family: 'Monstserrat', sans-serif;
+    src: url("https://cdn.rawgit.com/ahmedhosna95/upload/ba6564f8/fonts/Shabnam/Shabnam.eot");
+    src: url("https://cdn.rawgit.com/ahmedhosna95/upload/ba6564f8/fonts/Shabnam/Shabnam.eot?#iefix") format("embedded-opentype"),
+         url("https://cdn.rawgit.com/ahmedhosna95/upload/ba6564f8/fonts/Shabnam/Shabnam.woff") format("woff"),
+         url("https://cdn.rawgit.com/ahmedhosna95/upload/ba6564f8/fonts/Shabnam/Shabnam.woff2") format("woff2"),
+         url("https://cdn.rawgit.com/ahmedhosna95/upload/ba6564f8/fonts/Shabnam/Shabnam.ttf") format("truetype");
+    font-weight: normal;
+  }
+  
+  /* Адаптивность для мобильных устройств */
+  @media (max-width: 600px) {
+    #error-text {
+      font-size: 24px;
+    }
+  
+    #error-text span {
+      font-size: 2.5em;
+    }
+  
+    #error-text p.p-a {
+      font-size: 16px;
+    }
+  
+    #error-text p.p-b {
+      font-size: 14px;
+    }
+  
+    #error-text .back {
+      font-size: 18px;
+      padding: .5em 1.5em;
+    }
+  }
+  
+  @media (max-width: 400px) {
+    #error-text {
+      font-size: 18px;
+    }
+  
+    #error-text span {
+      font-size: 2em;
+    }
+  
+    #error-text p.p-a {
+      font-family: 'Monstserrat', sans-serif;
+      font-size: 14px;
+    }
+  
+    #error-text p.p-b {
+      font-size: 12px;
+    }
+  
+    #error-text .back {
+      font-size: 16px;
+      padding: .4em 1em;
+    }
+  }
+  

@@ -62,6 +62,14 @@ const Settings = () => {
     navigate('/subscribe');
   };
 
+  const EditProfile = () => {
+    navigate('/editprofile');
+  };
+
+  const EditPassword = () => {
+    navigate('/editpassword');
+  };
+
   return (
     <div className={`settings-container ${theme}`}>
       <Navbar />
@@ -86,11 +94,11 @@ const Settings = () => {
         </div>
           <div className="setting-item">
             <span className="setting-label">Профиль</span>
-            <button className="setting-button">Редактировать профиль</button>
+            <button className="setting-button" onClick={EditProfile}>Редактировать профиль</button>
           </div>
           <div className="setting-item">
             <span className="setting-label">Безопасность</span>
-            <button className="setting-button">Изменить пароль</button>
+            <button className="setting-button" onClick={EditPassword}>Изменить пароль</button>
           </div>
           <div className="setting-item">
             <span className="setting-label">Выйти из аккаунта</span>

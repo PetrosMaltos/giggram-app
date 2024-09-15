@@ -8,6 +8,7 @@ import { useUser } from './UserContext';
 import Loading from './components/Loading';
 import { useNavigate, Link } from 'react-router-dom';
 import { collection, query, where, getDocs } from 'firebase/firestore';
+import { db } from './firebaseConfig';
 
 const StarRating = React.memo(({ rating = 1 }) => {
   const stars = Array.from({ length: 5 }, (_, i) => (
@@ -30,9 +31,7 @@ const Profile = () => {
   const [inviteCount, setInviteCount] = useState(0);
 
   useEffect(() => {
-    if (!loading && !user) {
-      navigate('/login');
-    } else if (user) {
+    if (user) {
       const fetchInviteCount = async () => {
         try {
           const invitesRef = collection(db, 'invites');
@@ -46,7 +45,7 @@ const Profile = () => {
 
       fetchInviteCount();
     }
-  }, [loading, user, navigate]);
+  }, [user]); // Убедитесь, что зависимости включают пользователя
 
   const translateRole = (role) => {
     switch (role) {
@@ -61,13 +60,12 @@ const Profile = () => {
 
   const handleUpdateClick = async () => {
     try {
-      // Загрузка данных пользователя снова
-      window.location.reload();
+      // Вызываем обновление данных пользователя
+      await updateUser({}); // Передай данные, если они есть
     } catch (error) {
       console.error('Ошибка при обновлении данных пользователя:', error);
     }
   };
-  
 
   if (loading) {
     return <Loading />;

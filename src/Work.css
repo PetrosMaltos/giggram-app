@@ -1,0 +1,178 @@
+.work-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .main-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  
+  .progress-container {
+    margin: 20px 0;
+  }
+  
+  .progress-info {
+    color: #707070;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  
+  .progress-bar {
+    background-color: #363636;
+    border-radius: 10px;
+    height: 20px;
+    width: 100%;
+    position: relative;
+  }
+  
+  .progress-fill {
+    background-color: #6200ff;
+    height: 100%;
+    border-radius: 10px;
+    width: 60%;
+    transition: width 0.4s ease;
+  }
+  
+  .chat-container {
+    background-color: #222222;
+    border-radius: 12px;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  
+.chat-messages {
+  background: #1d1d1d;
+  position: relative;
+  height: 300px;
+  overflow-y: scroll;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: fadeIn 0.3s ease;
+  scroll-behavior: smooth;
+}
+
+  
+  .message p {
+    word-wrap: break-word; /* Перенос длинных слов */
+    white-space: pre-wrap; /* Сохранение пробелов и перенос строк */
+    overflow-wrap: anywhere; /* Обрезка текста */
+  }
+  
+  .message {
+    font-family: 'Montserrat', sans-serif;
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 20px 20px 5px 20px; /* Нестандартная форма сообщения */
+    font-size: 15px;
+    line-height: 1.5;
+    font-weight: 450;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.24); /* Тень для объема */
+  }
+  
+  .client-message {
+    background-color: #6200ff;
+    color: white;
+    align-self: flex-end;
+    border-radius: 20px 20px 5px 20px;
+  }
+  
+  .freelancer-message {
+    background-color: #444;
+    color: white;
+    align-self: flex-start;
+    border-radius: 20px 20px 20px 5px;
+  }
+  
+  
+  .chat-input-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .chat-input {
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    flex-grow: 1;
+    padding: 12px;
+    border-radius: 20px;
+    border: none;
+    background-color: #2c2c2c;
+    color: white;
+    font-size: 15px;
+  }
+  
+  .upload-button, .send-button {
+    background-color: #6200ff;
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .upload-button:hover, .send-button:hover {
+    background-color: #5a00e6;
+  }
+  
+  .send-button {
+    padding: 10px 15px;
+  }
+  
+  .complete-deal-button {
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    background: linear-gradient(45deg, #6200ff, #851bff);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);;
+  }
+  
+  .complete-deal-button:hover {
+    background-color: #5a00e6;
+  }
+
+  .send-icon {
+    color: #ffffff;
+    font-size: 16px; /* Размер иконок */
+  }
+  
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideInRight {
+    from { transform: translateX(20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  
+  @keyframes slideInLeft {
+    from { transform: translateX(-20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  

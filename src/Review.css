@@ -1,0 +1,127 @@
+.review-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Полная высота экрана */
+}
+
+.review-header {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: white; /* Белый цвет заголовка */
+}
+
+.review-rating {
+  border-radius: 12px;
+  background: #1d1d1d;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  margin: 0 5px;
+}
+
+.compliments-section {
+  background: #1d1d1d;
+  padding: 25px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.compliments-section h3 {
+  margin-bottom: 20px;
+  color: white; /* Белый цвет подзаголовка */
+}
+
+.compliments-section label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: white; /* Белый цвет текста */
+  cursor: pointer;
+}
+
+.compliments-section input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid white;
+  border-radius: 5px;
+  margin-right: 10px;
+  position: relative;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.compliments-section input[type="checkbox"]:checked {
+  background-color: #6200EE;
+  border-color: #8529ff;
+}
+
+.compliments-section input[type="checkbox"]:checked::after {
+  content: '\2713'; /* Галочка */
+  position: absolute;
+  top: 1px;
+  left: 4px;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+
+.review-textfield {
+  font-family: 'Montserrat', sans-serif;
+  width: 90%;
+  padding: 8px;
+  margin-bottom: 20px;
+  border: 2px solid #414141;
+  border-radius: 12px;
+  font-size: 16px;
+  resize: none;
+  height: 80px; /* Уменьшенная высота */
+  background-color: #1d1d1d;
+  transition: border-color 0.3s ease;
+  color: #ffffff;
+}
+
+.review-textfield:focus {
+  border-color: #6200EE;
+  outline: none;
+}
+
+.review-submit-button {
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  padding: 15px;
+  background-color: #6200EE;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+.check-icon {
+  margin-left: 10px;
+  font-size: 18px;
+}

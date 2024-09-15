@@ -37,20 +37,29 @@ export const UserProvider = ({ children }) => {
   }, [user]);
 
   const fetchUserData = async (uid) => {
-    const userRef = doc(db, 'users', uid);
-    const userSnap = await getDoc(userRef);
-    if (userSnap.exists()) {
-      setUser(userSnap.data());
-    } else {
+    try {
+      const userRef = doc(db, 'users', uid);
+      const userSnap = await getDoc(userRef);
+      if (userSnap.exists()) {
+        setUser(userSnap.data());
+      } else {
+        setUser(null);
+      }
+    } catch (error) {
+      console.error('Ошибка при получении данных пользователя:', error);
       setUser(null);
     }
   };
 
   const updateUser = async (newData) => {
-    if (user) {
-      const userRef = doc(db, 'users', user.uid);
-      await setDoc(userRef, { ...user, ...newData }, { merge: true });
-      await fetchUserData(user.uid); // Обновляем данные после изменения
+    try {
+      if (user) {
+        const userRef = doc(db, 'users', user.uid);
+        await setDoc(userRef, { ...user, ...newData }, { merge: true });
+        await fetchUserData(user.uid); // Обновляем данные после изменения
+      }
+    } catch (error) {
+      console.error('Ошибка при обновлении данных пользователя:', error);
     }
   };
 

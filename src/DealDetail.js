@@ -45,7 +45,7 @@ const DealDetail = () => {
   ];
 
   const handleStartClick = () => {
-    navigate('/payment'); // Переход на страницу оплаты
+    navigate('/deal/${dealId}/payment'); // Переход на страницу оплаты
   };
 
   return (
