@@ -174,7 +174,7 @@ html, body {
   margin: 0 auto;
 }
 
-.main-list, .categories-list, .services-list {
+s.categories-list, .services-list {
   padding: 10px;
   display: flex;
   flex-wrap: wrap;
@@ -182,7 +182,30 @@ html, body {
   justify-content: center;
 }
 
+/* Контейнер для заказов */
+.main-list {
+  display: flex;
+  flex-direction: column; /* Вертикальное выравнивание */
+  gap: 0px; /* Отступ между заказами */
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Карточка заказа */
+.order-card {
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 330px;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
 .main-list > div {
+  max-width: 330px; /* Ограничь ширину каждой карточки */
+  width: 100%; /* Каждая карточка будет занимать 100% от доступного пространства, но не больше max-width */
   padding: 10px;
   display: flex;
   flex-wrap: wrap;
@@ -192,7 +215,7 @@ html, body {
 }
 
 /* Карточки */
-.order-card, .category-card, .service-card {
+.category-card, .service-card {
   background-color: #1e1e1e;
   border-radius: 12px;
   padding: 20px;
