@@ -178,7 +178,7 @@ html, body {
   padding: 10px;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 0px;
   justify-content: center;
 }
 

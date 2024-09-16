@@ -311,3 +311,43 @@
     right: 10px;
     transition: background-color 0.3s ease;
   }
+
+  .no-user-icon {
+    font-size: 48px;
+    color: #6200ee;
+    margin-bottom: 20px;
+  }
+  
+  .no-user-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .user-icon {
+    margin-right: 8px;
+  }
+  
+  .no-user-message {
+    font-size: 16px;
+    color: #757575;
+    width: 300px;
+    text-align: center;
+    margin-bottom: 30px;
+    margin-left: 5px;
+  }
+  
+  .register-link, .login-link {
+    color: #6200ee;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  
+  .register-link:hover, .login-link:hover {
+    text-decoration: underline;
+  }
+  

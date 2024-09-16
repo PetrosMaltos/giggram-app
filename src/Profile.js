@@ -9,6 +9,7 @@ import Loading from './components/Loading';
 import { useNavigate, Link } from 'react-router-dom';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from './firebaseConfig';
+import { FaUserAlt, FaExclamationTriangle } from 'react-icons/fa';
 
 const StarRating = React.memo(({ rating = 1 }) => {
   const stars = Array.from({ length: 5 }, (_, i) => (
@@ -58,14 +59,10 @@ const Profile = () => {
     }
   };
 
-  const handleUpdateClick = async () => {
-    try {
-      // Вызываем обновление данных пользователя
-      await updateUser({}); // Передай данные, если они есть
-    } catch (error) {
-      console.error('Ошибка при обновлении данных пользователя:', error);
-    }
+  const handleUpdateClick = () => {
+    window.location.reload(); // Перезагружает страницу
   };
+  
 
   if (loading) {
     return <Loading />;
@@ -77,8 +74,15 @@ const Profile = () => {
         <Navbar />
         <div className="profile-content">
           <div className="card-container">
-            <h3>Пользователь не зарегистрирован</h3>
-            <p>Пожалуйста, <Link to="/register">зарегистрируйтесь</Link> или <Link to="/login">войдите</Link> в систему.</p>
+            <div className="no-user-icon">
+              <FaExclamationTriangle />
+            </div>
+            <div className="no-user-title">
+              Пользователь не зарегистрирован
+            </div>
+            <div className="no-user-message">
+              Пожалуйста, <Link to="/register" className="register-link">зарегистрируйтесь</Link> или <Link to="/login" className="login-link">войдите</Link> в систему.
+            </div>
           </div>
         </div>
       </div>

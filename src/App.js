@@ -41,6 +41,7 @@ import Review from './Review';
 import Payment from './Payment';
 import PaymentOrder from './PaymentOrder';
 import EditPassword from './components/EditPassword';
+import ForgotPassword from './ForgotPassword';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -103,6 +104,7 @@ const App = () => {
             <Route path="/deal/:dealId/payment" element={<Payment />} />
             <Route path="/payment-order" element={<PaymentOrder />} />
             <Route path="/editpassword" element={<EditPassword />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
           </Routes>
         )}
       </Router>

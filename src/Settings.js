@@ -3,10 +3,11 @@ import './Settings.css';
 import Navbar from './components/Navbar';
 import { signOut } from 'firebase/auth';
 import { auth, db } from './firebaseConfig';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from './firebaseConfig';
+import { FaExclamationTriangle } from 'react-icons/fa';
 
 const Settings = () => {
   const [theme, setTheme] = useState('dark');
@@ -17,10 +18,12 @@ const Settings = () => {
 
   useEffect(() => {
     const fetchUserAvatar = async () => {
-      const userDoc = doc(db, 'users', auth.currentUser.uid);
-      const userSnap = await getDoc(userDoc);
-      if (userSnap.exists()) {
-        setAvatar(userSnap.data().avatar || '');
+      if (auth.currentUser) {
+        const userDoc = doc(db, 'users', auth.currentUser.uid);
+        const userSnap = await getDoc(userDoc);
+        if (userSnap.exists()) {
+          setAvatar(userSnap.data().avatar || '');
+        }
       }
     };
 
@@ -46,7 +49,7 @@ const Settings = () => {
 
   const handleAvatarChange = async (e) => {
     const file = e.target.files[0];
-    if (file) {
+    if (file && auth.currentUser) {
       const storageRef = ref(storage, `avatars/${auth.currentUser.uid}/${file.name}`);
       await uploadBytes(storageRef, file);
       const newAvatar = await getDownloadURL(storageRef);
@@ -70,6 +73,25 @@ const Settings = () => {
     navigate('/editpassword');
   };
 
+  if (!auth.currentUser) {
+    return (
+      <div className="profile-page">
+        <Navbar />
+        <div className="profile-content">
+          <div className="card-container">
+            <div className="no-user-icon">
+              <FaExclamationTriangle />
+            </div>
+            <div className="no-user-title">Пользователь не зарегистрирован</div>
+            <div className="no-user-message">
+              Пожалуйста, <Link to="/register" className="register-link">зарегистрируйтесь</Link> или <Link to="/login" className="login-link">войдите</Link> в систему.
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={`settings-container ${theme}`}>
       <Navbar />
@@ -77,21 +99,21 @@ const Settings = () => {
       <div className={`settings-section ${openSection === 'account' ? 'open' : ''}`}>
         <h2 className="section-title" onClick={() => toggleSection('account')}>Аккаунт</h2>
         <div className="settings-content">
-        <div className="avatar-container" onClick={() => document.getElementById('avatar-upload').click()}>
-          <input
-            type="file"
-            id="avatar-upload"
-            className="avatar-upload"
-            accept="image/*"
-            onChange={handleAvatarChange}
-          />
-          <div className="avatar">
-            <img src={avatar} alt="User Avatar" className="avatar-image" />
-            <div className="avatar-overlay">
-              <span className="overlay-text">Изменить аватарку</span>
+          <div className="avatar-container" onClick={() => document.getElementById('avatar-upload').click()}>
+            <input
+              type="file"
+              id="avatar-upload"
+              className="avatar-upload"
+              accept="image/*"
+              onChange={handleAvatarChange}
+            />
+            <div className="avatar">
+              <img src={avatar} alt="User Avatar" className="avatar-image" />
+              <div className="avatar-overlay">
+                <span className="overlay-text">Изменить аватарку</span>
+              </div>
             </div>
           </div>
-        </div>
           <div className="setting-item">
             <span className="setting-label">Профиль</span>
             <button className="setting-button" onClick={EditProfile}>Редактировать профиль</button>
