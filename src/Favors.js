@@ -274,7 +274,7 @@ const Favors = () => {
         </section>
         <div className='create-favor-button-container'>
           <button className="create-favor-button" onClick={handleCreateFavorClick}>
-            <FaPlus className="create-favor-icon" /> Создать свою услугу
+            <FaPlus className="create-favor-icon" /> Создать услугу
           </button>
         </div>
       </div>
