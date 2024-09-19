@@ -42,10 +42,13 @@ const translateRole = (role) => {
       return 'Фрилансер';
     case 'client':
       return 'Заказчик';
+    case 'admin':
+      return 'Модератор';
     default:
       return 'Неизвестная роль';
   }
 };
+
 
 const OtherProfile = () => {
   const { userId } = useParams();
@@ -123,8 +126,11 @@ const OtherProfile = () => {
               <span>Архивные заказы:</span> {user.archivedOrders}
             </div>
             <div className="info-item">
-              <span>Роль:</span> {translateRole(user.role)}
-            </div>
+          <span>Роль:</span>
+          <span className={user.role === 'admin' ? 'role-admin' : ''}>
+            {translateRole(user.role)}
+          </span>
+        </div>
           </div>
         </div>
       </div>

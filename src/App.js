@@ -42,6 +42,7 @@ import Payment from './Payment';
 import PaymentOrder from './PaymentOrder';
 import EditPassword from './components/EditPassword';
 import ForgotPassword from './ForgotPassword';
+import Moderation from './Moderation'
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -105,6 +106,7 @@ const App = () => {
             <Route path="/payment-order" element={<PaymentOrder />} />
             <Route path="/editpassword" element={<EditPassword />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/moderation" element={<Moderation />} />
           </Routes>
         )}
       </Router>

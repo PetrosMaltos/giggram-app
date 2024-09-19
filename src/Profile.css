@@ -351,3 +351,7 @@
     text-decoration: underline;
   }
   
+.role-admin {
+  color: #6500e9;
+  margin-left: 5px;
+}

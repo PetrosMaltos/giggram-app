@@ -10,7 +10,6 @@ const CreateProject = () => {
     title: '',
     description: '',
     category: '',
-    price: '',
     tags: '',
   });
   const [image, setImage] = useState(null);
@@ -39,18 +38,18 @@ const CreateProject = () => {
     e.preventDefault();
     if (isSubmitting) return; // Предотвращаем повторное нажатие
     setIsSubmitting(true);
-
-    const { title, description, category, price, tags } = formData;
+  
+    const { title, description, category, tags } = formData;
     const newProject = {
       title,
       description,
       category,
-      price: parseFloat(price), // Преобразуем цену в число
       tags: tags.split(',').map((tag) => tag.trim()),
       views: 0,
       responses: 0,
       createdAt: Timestamp.now(), // Записываем текущее время
       image: imagePreview, // Добавляем изображение
+      status: 'pending' // Устанавливаем статус как "pending"
     };
     try {
       await addDoc(collection(db, 'projects'), newProject);
@@ -61,6 +60,7 @@ const CreateProject = () => {
       setIsSubmitting(false);
     }
   };
+  
 
   useEffect(() => {
     // Setup "Back" button

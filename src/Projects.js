@@ -19,7 +19,8 @@ const Projects = () => {
           ...data,
           createdAt: data.createdAt ? data.createdAt.toDate() : new Date(),
         };
-      });
+      }).filter(project => project.status === 'approved'); // Фильтрация по статусу
+
       const sortedProjects = projects.sort((a, b) => b.createdAt - a.createdAt);
       setProjectsData(sortedProjects);
       setFilteredProjects(sortedProjects);

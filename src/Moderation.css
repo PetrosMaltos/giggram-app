@@ -1,0 +1,122 @@
+.moderation-page {
+    padding: 20px;
+    color: #e0e0e0; /* Светлый цвет текста */
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  .nnnn {
+   font-size: 1.5rem; /* Уменьшенный размер заголовка */
+    margin-bottom: 30px;
+    font-weight: 600;
+    text-align: center; /* Выравнивание по центру */
+  }
+    
+    
+  .filter-buttons {
+    background-color: #333;
+    padding: 12px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  }
+  
+  .filter-buttons button {
+    font-family: 'Montserrat', sans-serif;
+    padding: 10px 20px;
+    border: none;
+    background-color: #6200EE; /* Основной цвет кнопок */
+    color: #fff; /* Цвет текста на кнопках */
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  }
+  
+  .filter-buttons .active {
+    background-color: #4b00b4; /* Более тёмный оттенок активной кнопки */
+  }
+
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-bar input {
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    padding: 10px;
+    width: 100%;
+    border: 2px solid #444;
+    background-color: #333;
+    color: #e0e0e0;
+    border-radius: 12px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  
+  .search-bar input:focus {
+    background-color: #444;
+    border-color: #ffffff;
+    outline: none;
+  }
+  
+  .moderation-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .moderation-item {
+    background-color: #1e1e1e; /* Тёмный фон для карточек */
+    padding: 20px;
+    border: 2px solid #333;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .moderation-item:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .moderation-actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .approve-button,
+  .reject-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  }
+  
+  .approve-button {
+    background-color: #00C853; /* Зеленый цвет для одобрения */
+    color: #fff;
+  }
+  
+  .reject-button {
+    background-color: #FF1744; /* Красный цвет для отклонения */
+    color: #fff;
+  }
+  
+  .approve-button:hover {
+    background-color: #00B34A;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  
+  .reject-button:hover {
+    background-color: #D50032;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  

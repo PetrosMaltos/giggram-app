@@ -42,7 +42,9 @@ const CreateFavor = () => {
       responses: 0,
       createdAt: Timestamp.now(),
       imagePaths: [],
+      status: 'pending' //  статус как 'pending'
     };
+    
   
     try {
       if (image1) {

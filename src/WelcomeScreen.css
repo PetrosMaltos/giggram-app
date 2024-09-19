@@ -201,3 +201,42 @@
       font-size: 0.6rem;
     }
   }
+  @media (max-height: 650px) {
+    .welcome-screen {
+      height: 100vh; /* Устанавливаем высоту в 100% от высоты экрана */
+      padding: 10px; /* Уменьшаем отступы */
+    }
+  
+    .welcome-content {
+      height: 70%; /* Уменьшаем высоту контента */
+      max-height: 70vh; /* Устанавливаем максимальную высоту */
+    }
+  
+    .welcome-title {
+      font-size: 1.5rem; /* Уменьшаем размер заголовка */
+    }
+  
+    .welcome-description {
+      font-size: 0.8rem; /* Уменьшаем размер описания */
+    }
+  
+    .benefits {
+      padding: 10px; /* Уменьшаем отступы внутри блока преимуществ */
+      margin-top: 10px; /* Уменьшаем верхний отступ */
+    }
+  
+    .benefits h2 {
+      font-size: 1rem; /* Уменьшаем размер заголовка блока преимуществ */
+    }
+  
+    .benefits li {
+      font-size: 0.8rem; /* Уменьшаем размер шрифта в списке преимуществ */
+    }
+  
+    .welcome-button {
+      margin-bottom: 20px;
+      padding: 10px 20px; /* Уменьшаем внутренние отступы кнопки */
+      font-size: 1rem; /* Уменьшаем размер шрифта кнопки */
+    }
+  }
+  

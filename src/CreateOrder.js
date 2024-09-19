@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { db } from './firebaseConfig';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
@@ -38,7 +38,6 @@ const CreateOrder = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
-
   const auth = getAuth();
 
   const handleInputChange = (e) => {
@@ -73,12 +72,13 @@ const CreateOrder = () => {
       createdAt: Timestamp.now(),
       activeTime: parseInt(activeTime), // сохраняем активное время в часах
       createdBy: user.uid,
+      status: 'pending', // устанавливаем статус "на модерации"
     };
 
     try {
       await addDoc(collection(db, 'orders'), newOrder);
-      setSuccess('Заказ успешно создан!');
-      setTimeout(() => navigate('/orders'), 1500);
+      setSuccess('Заказ отправлен на модерацию!');
+      setTimeout(() => navigate('/orders'), 1500); // перенаправляем на главную страницу
     } catch (error) {
       setError('Ошибка создания заказа. Попробуйте еще раз.');
       console.error('Ошибка создания заказа:', error);

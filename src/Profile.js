@@ -54,10 +54,13 @@ const Profile = () => {
         return 'Фрилансер';
       case 'client':
         return 'Заказчик';
+      case 'admin':
+        return 'Модератор';
       default:
         return 'Неизвестная роль';
     }
   };
+  
 
   const handleUpdateClick = () => {
     window.location.reload(); // Перезагружает страницу
@@ -146,8 +149,11 @@ const Profile = () => {
               <span>Архивные заказы:</span> {user.archivedOrders}
             </div>
             <div className="info-item">
-              <span>Роль:</span> {translateRole(user.role)}
-            </div>
+          <span>Роль:</span>
+          <span className={user.role === 'admin' ? 'role-admin' : ''}>
+            {translateRole(user.role)}
+          </span>
+        </div>
           </div>
           <div className="my-responses">
             <Link to="/my-responses" className="response-link">

@@ -71,10 +71,12 @@ const Favors = () => {
       const matchesSearchIn = !searchIn.length || searchIn.some(search => favor.tags.includes(search));
       const matchesSearchText = !searchText || [favor.title, favor.description, ...favor.tags].some(text => text.toLowerCase().includes(lowerSearchText));
       const matchesPrice = (priceFrom === '' || parseFloat(favor.price) >= parseFloat(priceFrom)) && (priceTo === '' || parseFloat(favor.price) <= parseFloat(priceTo));
-      return matchesCategory && matchesSearchIn && matchesSearchText && matchesPrice;
+      const isApproved = favor.status === 'approved'; // Фильтрация по статусу
+      return matchesCategory && matchesSearchIn && matchesSearchText && matchesPrice && isApproved;
     });
     setFilteredFavors(newFilteredFavors);
   };
+  
 
   const handleCreateFavorClick = () => {
     window.location.href = '/create-favor';

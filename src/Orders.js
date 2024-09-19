@@ -22,18 +22,24 @@ const Orders = () => {
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, 'orders'), (snapshot) => {
-      const orders = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data(),
-        createdAt: doc.data().createdAt.toDate(),
-      }));
-      // Сортируем заказы по дате создания в порядке убывания
-      const sortedOrders = orders.sort((a, b) => b.createdAt - a.createdAt);
-      setOrdersData(sortedOrders);
-      setFilteredOrders(sortedOrders);
+      const orders = snapshot.docs
+        .map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+          createdAt: doc.data().createdAt.toDate(),
+        }))
+        // Отображать только одобренные заказы
+        .filter(order => order.status === 'approved')
+        // Сортировать заказы по дате
+        .sort((a, b) => b.createdAt - a.createdAt);
+      
+      setOrdersData(orders);
+      setFilteredOrders(orders);
     });
+  
     return () => unsubscribe();
   }, []);
+  
 
   useEffect(() => {
     filterOrders(filters);
