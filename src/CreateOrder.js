@@ -73,6 +73,7 @@ const CreateOrder = () => {
       activeTime: parseInt(activeTime), // сохраняем активное время в часах
       createdBy: user.uid,
       status: 'pending', // устанавливаем статус "на модерации"
+      clientId: user.uid, 
     };
 
     try {

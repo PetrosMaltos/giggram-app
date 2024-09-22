@@ -149,7 +149,8 @@ const Profile = () => {
               <span>Архивные заказы:</span> {user.archivedOrders}
             </div>
             <div className="info-item">
-          <span>Роль:</span>
+
+          <span className='role'>Роль:</span>
           <span className={user.role === 'admin' ? 'role-admin' : ''}>
             {translateRole(user.role)}
           </span>

@@ -1,3 +1,4 @@
+// App.js
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import WelcomeScreen from './WelcomeScreen';
@@ -21,12 +22,12 @@ import Help from './Help';
 import MyOrders from './MyOrders';
 import MyProjects from './MyProjects';
 import MyFavors from './MyFavors';
-import { ordersData } from './components/ordersData'; // Импортируем данные заказов
+import { ordersData } from './components/ordersData';
 import Login from './Login';
 import Register from './Register';
 import EditProfile from './EditProfile';
-import { UserProvider } from './UserContext'; // Импортируем UserProvider
-import OtherProfile from './OtherProfile'
+import { UserProvider, useUser } from './UserContext';
+import OtherProfile from './OtherProfile';
 import NotFound from './NotFound';
 import CreateProject from './CreateProject';
 import ClientDashboard from './ClientDashboard';
@@ -39,10 +40,10 @@ import DealDetail from './DealDetail';
 import Work from './Work';
 import Review from './Review';
 import Payment from './Payment';
-import PaymentOrder from './PaymentOrder';
+import CardPayment from './CardPayment';
 import EditPassword from './components/EditPassword';
 import ForgotPassword from './ForgotPassword';
-import Moderation from './Moderation'
+import Moderation from './Moderation';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -103,7 +104,7 @@ const App = () => {
             <Route path="/deal/:dealId/work" element={<Work />} />
             <Route path="/deal/:dealId/review" element={<Review />} />
             <Route path="/deal/:dealId/payment" element={<Payment />} />
-            <Route path="/payment-order" element={<PaymentOrder />} />
+            <Route path="/deal/:dealId/card-payment" element={<CardPayment />} />
             <Route path="/editpassword" element={<EditPassword />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/moderation" element={<Moderation />} />

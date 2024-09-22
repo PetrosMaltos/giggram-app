@@ -1,10 +1,40 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom'; 
+import { doc, getDoc } from 'firebase/firestore'; // Импортируем getDoc
+import { db } from './firebaseConfig'; // Импортируем конфигурацию Firebase
 import './Payment.css'; 
 import { FaRegSnowflake } from "react-icons/fa";
 
-const Payment = ({ dealId }) => {
+const Payment = () => {
   const navigate = useNavigate();
+  const { dealId } = useParams(); // Получаем dealId из параметров
+  const [dealStage, setDealStage] = useState('');
+
+  useEffect(() => {
+    const fetchDealStage = async () => {
+      try {
+        const dealRef = doc(db, 'deals', dealId);
+        const dealSnap = await getDoc(dealRef);
+
+        if (dealSnap.exists()) {
+          setDealStage(dealSnap.data().stage); // Получаем этап сделки из Firestore
+        } else {
+          console.error('Делок не найден');
+        }
+      } catch (error) {
+        console.error('Ошибка при получении этапа сделки:', error);
+      }
+    };
+
+    fetchDealStage();
+  }, [dealId]);
+
+  // Проверяем этап сделки
+  useEffect(() => {
+    if (dealStage === 'Work') {
+      navigate(`/deal/${dealId}/work`); // Перенаправляем на страницу "Работа", если этап "Работа"
+    }
+  }, [dealStage, dealId, navigate]);
 
   const dealInfo = {
     title: 'Название заказа',
@@ -14,42 +44,14 @@ const Payment = ({ dealId }) => {
     deadlines: '10 дней',
   };
 
-  const handleFreezeClick = async () => {
-    try {
-      // Обновление этапа сделки на 'Оплата'
-      await updateDoc(doc(db, 'deals', dealId), {
-        stage: 'Оплата',
-      });
-      console.log('Средства заморожены и этап обновлен');
-    } catch (error) {
-      console.error('Ошибка при замораживании средств:', error);
-    }
+  const handleFreezeClick = () => {
+    navigate(`/deal/${dealId}/card-payment`); // Перенаправление на страницу оплаты картой
   };
-  
 
-  // Отправляем на сервер текущий этап сделки
-  useEffect(() => {
-    const updateDealStage = async () => {
-      try {
-        await fetch('/api/update-deal-stage', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ dealId, stage: 'Оплата' }),
-        });
-      } catch (error) {
-        console.error('Ошибка при обновлении этапа сделки:', error);
-      }
-    };
-
-    updateDealStage();
-  }, [dealId]);
   return (
     <div className="payment-container">
       <h1 className="main-title">Оплата заказа</h1>
 
-      {/* Этапы */}
       <div className="steps-nav">
         <div className="step">Заказ</div>
         <div className="step active">Оплата</div>
@@ -57,13 +59,11 @@ const Payment = ({ dealId }) => {
         <div className="step">Отзыв</div>
       </div>
 
-     {/* Блок "Оплата" */}
-<div className="block-payment">
-  <h2>Оплата</h2>
-  <p>Для начала сделки заморозьте средства. Это обеспечит безопасность и подтверждение вашего намерения.</p>
-</div>
+      <div className="block-payment">
+        <h2>Оплата</h2>
+        <p>Для начала сделки заморозьте средства. Это обеспечит безопасность и подтверждение вашего намерения.</p>
+      </div>
 
-      {/* Информация о заказе */}
       <div className="deal-info">
         <h2>Название заказа</h2>
         <p>Цена: {dealInfo.price}</p>
@@ -72,11 +72,10 @@ const Payment = ({ dealId }) => {
         <p>Сроки: {dealInfo.deadlines}</p>
       </div>
 
-      {/* Кнопка "Заморозить средства" */}
       <div className="start-button-container">
-        <button className="start-button" onClick={handleFreezeClick}>
+        <button className='start-button' onClick={handleFreezeClick}>
           Заморозить средства
-          <FaRegSnowflake className='snowflake-icon'/>
+          <FaRegSnowflake className='snowflake-icon' />
         </button>
       </div>
     </div>

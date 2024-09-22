@@ -143,24 +143,37 @@ const OrderDetail = () => {
                 console.error('Данные заказа не найдены');
                 return;
             }
-            const inviteRef = doc(db, 'invites', `${orderData.clientId}_${response.userId}_${id}`);
-            const inviteData = {
-                userId: response.userId,
+    
+            // Создаем сделку
+            const dealData = {
+                clientId: orderData.clientId,
+                freelancerId: response.userId,
                 projectTitle: orderData.title,
-                message: `Вы были приглашены на работу по заказу "${orderData.title}"`,
-                status: 'Pending',
-                orderId: id,
+                status: 'in-progress',
+                paymentStatus: 'pending',
+                price: orderData.price,
                 createdAt: new Date(),
-                senderName: userData.username // добавляем имя отправителя
             };
-            await setDoc(inviteRef, inviteData);
-            // Обновляем статус отклика и заказа
-            await updateDoc(orderRef, { acceptedResponse: response, status: 'in-progress', paymentStatus: 'frozen' });
-            alert('Отклик принят, средства заморожены и приглашение отправлено!');
+    
+            // Создаём сделку для фрилансера
+            const freelancerDealRef = doc(db, 'deals', `${response.userId}_${id}`);
+            await setDoc(freelancerDealRef, dealData);
+    
+            // Создаём сделку для заказчика
+            const clientDealRef = doc(db, 'deals', `${orderData.clientId}_${id}`);
+            await setDoc(clientDealRef, { ...dealData, freelancerId: response.userId });
+    
+            // Обновляем заказ с принятой откликом
+            await updateDoc(orderRef, { acceptedResponse: response, status: 'in-progress' });
+    
+            alert('Отклик принят, сделка создана для обоих пользователей!');
         } catch (error) {
             console.error('Ошибка принятия отклика:', error);
         }
     };
+    
+    
+    
 
     useEffect(() => {
         if (window.Telegram && window.Telegram.WebApp) {
@@ -190,103 +203,131 @@ const OrderDetail = () => {
 
     return (
         <div className="order-detail">
-            <div className="order-info">
-                <div className="client-profile">
-                    <div className="client-avatar">
-                        {creatorData?.avatar ? (
-                            <img src={creatorData.avatar} alt="Client Avatar" />
-                        ) : (
-                            <div className="default-avatar">A</div>
-                        )}
-                    </div>
-                    <div className="client-info">
-                        <div className="client-name">{creatorData?.username || 'Неизвестный клиент'}</div>
-                        <div className="client-reviews">
-                            <AiFillStar className="star-rating" />
-                            <span>4.4</span>
-                        </div>
-                    </div>
-                </div>
-                <h1 className="order-title">{order.title}</h1>
-                <p className="order-description">{order.description}</p>
-                <div className="order-details">
-                    <div className="order-info-item">
-                        <FaDollarSign className="order-icon" />
-                        <span className="order-price">{order.price} руб.</span>
-                    </div>
-                    <div className="order-info-item">
-                        <FaEye className="order-icon" />
-                        <span className="order-views">{order.views || 0} просмотров</span>
-                    </div>
-                    <div className="order-info-item">
-                        <FaClock className="order-icon" />
-                        <span className="order-time">{timeAgo}</span>
-                    </div>
-                    <div className="order-info-item">
-                        <FaCommentDots className="order-icon" />
-                        <span className="order-responses">{responses.length} откликов</span>
-                    </div>
-                </div>
-                <div className="order-tags">
-                    {order.tags && order.tags.length > 0 ? (
-                        order.tags.map((tag, index) => (
-                            <span key={index} className="tag"># {tag}</span>
-                        ))
-                    ) : (
-                        <span className="order-tag">Нет тегов</span>
-                    )}
-                </div>
-                <div className="divider" />
-                <div className="response-section">
-                    {isUserLoggedIn ? (
-                        userData?.uid !== order.createdBy ? (
-                            <div className="response-form">
-                                <div className="response-info">
-                                    <span>Осталось откликов: {remainingResponses}</span>
-                                </div>
-                                <textarea className="response-textarea" placeholder="Напишите ваш отклик здесь..." value={response} onChange={handleResponseChange} />
-                                <button className="response-button" onClick={handleSubmit} disabled={remainingResponses <= 0}>
-                                    Отправить
-                                </button>
+            {!order || !userData ? (
+                <Loading />
+            ) : (
+                <>
+                    {/* Информация о заказе для всех пользователей */}
+                    <div className="order-info">
+                        <div className="client-profile">
+                            <div className="client-avatar">
+                                {creatorData?.avatar ? (
+                                    <img src={creatorData.avatar} alt="Client Avatar" />
+                                ) : (
+                                    <div className="default-avatar">A</div>
+                                )}
                             </div>
-                        ) : null
+                            <div className="client-info">
+                                <div className="client-name">{creatorData?.username || 'Неизвестный клиент'}</div>
+                                <div className="client-reviews">
+                                    <AiFillStar className="star-rating" />
+                                    <span>4.4</span>
+                                </div>
+                            </div>
+                        </div>
+                        <h1 className="order-title">{order.title}</h1>
+                        <p className="order-description">{order.description}</p>
+                        <div className="order-details">
+                            <div className="order-info-item">
+                                <FaDollarSign className="order-icon" />
+                                <span className="order-price">{order.price} руб.</span>
+                            </div>
+                            <div className="order-info-item">
+                                <FaEye className="order-icon" />
+                                <span className="order-views">{order.views || 0} просмотров</span>
+                            </div>
+                            <div className="order-info-item">
+                                <FaClock className="order-icon" />
+                                <span className="order-time">{timeAgo}</span>
+                            </div>
+                            <div className="order-info-item">
+                                <FaCommentDots className="order-icon" />
+                                <span className="order-responses">{responses.length} откликов</span>
+                            </div>
+                        </div>
+                        <div className="order-tags">
+                            {order.tags && order.tags.length > 0 ? (
+                                order.tags.map((tag, index) => (
+                                    <span key={index} className="tag"># {tag}</span>
+                                ))
+                            ) : (
+                                <span className="order-tag">Нет тегов</span>
+                            )}
+                        </div>
+                        <div className="divider" />
+                    </div>
+    
+                    {/* Логика для создателя заказа */}
+                    {userData.uid === order.createdBy ? (
+                        <div className="responses-list">
+                            <h2>Отклики</h2>
+                            {responses.length > 0 ? (
+                                responses.map((res, index) => {
+                                    const createdAtDate = res.createdAt.toDate ? res.createdAt.toDate() : new Date(res.createdAt);
+                                    const username = userMap[res.userId]?.username || 'Неизвестный пользователь';
+                                    const avatar = userMap[res.userId]?.avatar || 'default-avatar.png';
+                                    return (
+                                        <div key={index} className="response-item">
+                                            <div className="response-header">
+                                                <img src={avatar} alt="User Avatar" className="response-avatar" />
+                                                <span className="response-username">{username}</span>
+                                                <span className="response-date">{formatDistanceToNow(createdAtDate, { addSuffix: true, locale: ru })}</span>
+                                            </div>
+                                            <div className="response-text">{res.text}</div>
+                                            {order.acceptedResponse !== res && (
+                                                <button className="accept-button" onClick={() => handleAcceptResponse(res)}>
+                                                Принять отклик
+                                            </button>
+                                            
+                                            )}
+                                        </div>
+                                    );
+                                })
+                            ) : (
+                                <p>Нет откликов.</p>
+                            )}
+                        </div>
                     ) : (
-                        <div className="registration-message">
-                            <FaLock className="lock-icon" />
-                            <h2>Пожалуйста, зарегистрируйтесь</h2>
-                            <p>Для отправки отклика на этот заказ необходимо зарегистрироваться. Пожалуйста, <a href="/register">зарегистрируйтесь</a> для продолжения.</p>
+                        /* Логика для остальных пользователей */
+                        <div className="response-section">
+                            {isUserLoggedIn ? (
+                                userData?.uid !== order.createdBy ? (
+                                    <div className="response-form">
+                                        <div className="response-info">
+                                            <span>Осталось откликов: {remainingResponses}</span>
+                                        </div>
+                                        <textarea
+                                            className="response-textarea"
+                                            placeholder="Напишите ваш отклик здесь..."
+                                            value={response}
+                                            onChange={handleResponseChange}
+                                        />
+                                        <button
+                                            className="response-button"
+                                            onClick={handleSubmit}
+                                            disabled={remainingResponses <= 0}
+                                        >
+                                            Отправить
+                                        </button>
+                                    </div>
+                                ) : null
+                            ) : (
+                                <div className="registration-message">
+                                    <FaLock className="lock-icon" />
+                                    <h2>Пожалуйста, зарегистрируйтесь</h2>
+                                    <p>
+                                        Для отправки отклика на этот заказ необходимо зарегистрироваться. Пожалуйста,{' '}
+                                        <a href="/register">зарегистрируйтесь</a> для продолжения.
+                                    </p>
+                                </div>
+                            )}
                         </div>
                     )}
-                </div>
-                {userData?.role === 'client' && creatorData?.uid === userData.uid && (
-                    <div className="responses-list">
-                        {responses.length > 0 ? (
-                            responses.map((res, index) => {
-                                const createdAtDate = res.createdAt.toDate ? res.createdAt.toDate() : new Date(res.createdAt);
-                                const username = userMap[res.userId]?.username || 'Неизвестный пользователь';
-                                const avatar = userMap[res.userId]?.avatar || 'default-avatar.png';
-                                return (
-                                    <div key={index} className="response-item">
-                                        <div className="response-header">
-                                            <img src={avatar} alt="User Avatar" className="response-avatar" />
-                                            <span className="response-username">{username}</span>
-                                            <span className="response-date">{formatDistanceToNow(createdAtDate, { addSuffix: true, locale: ru })}</span>
-                                        </div>
-                                        <div className="response-text">{res.text}</div>
-                                        {order.acceptedResponse !== res && (
-                                            <button className="accept-button" onClick={() => handleAcceptResponse(res)}>Пригласить на работу</button>
-                                        )}
-                                    </div>
-                                );
-                            })
-                        ) : (
-                            <p>Нет откликов.</p>
-                        )}
-                    </div>
-                )}
-            </div>
+                </>
+            )}
         </div>
     );
+    
 };
 
 export default OrderDetail;

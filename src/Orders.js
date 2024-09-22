@@ -29,7 +29,7 @@ const Orders = () => {
           createdAt: doc.data().createdAt.toDate(),
         }))
         // Отображать только одобренные заказы
-        .filter(order => order.status === 'approved')
+        .filter(order => order.status !== 'deleted')  // или другой логичный фильтр, чтобы не показывать удаленные заказы
         // Сортировать заказы по дате
         .sort((a, b) => b.createdAt - a.createdAt);
       

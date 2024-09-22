@@ -23,6 +23,17 @@ html, body {
   background: #000;
 }
 
+/* Ограничение ширины и центрирование для gradient text и main-header h1 */
+.main-header .header-title {
+  max-width: 300px;
+  margin: 0 auto; /* Центрирование по горизонтали */
+  margin-bottom: 10px;
+}
+
+.main-header .gradient-text {
+  max-width: 300px;
+}
+
 /* Заголовок и текст в header */
 .main-header .gradient-text {
   font-size: 2.2rem;
@@ -174,7 +185,7 @@ html, body {
   margin: 0 auto;
 }
 
-s.categories-list, .services-list {
+.categories-list, .services-list {
   padding: 10px;
   display: flex;
   flex-wrap: wrap;

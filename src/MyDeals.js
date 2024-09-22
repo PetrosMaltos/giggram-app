@@ -20,16 +20,22 @@ const MyDeals = () => {
                         const userData = userSnap.data();
                         setUserRole(userData.role);
 
-                        let q;
+                        // Массив для хранения условий фильтрации
+                        let conditions = [];
+
                         if (userData.role === 'freelancer') {
-                            q = query(collection(db, 'deals'), where('freelancerId', '==', user.uid));
+                            conditions.push(where('freelancerId', '==', user.uid));
                         } else if (userData.role === 'client') {
-                            q = query(collection(db, 'deals'), where('clientId', '==', user.uid));
+                            conditions.push(where('clientId', '==', user.uid));
+                        } else if (userData.role === 'admin') {
+                            // Если модератор, отображаем все сделки
+                            // Если нужно, добавьте дополнительные условия
                         } else {
                             console.error('Неизвестная роль пользователя');
                             return;
                         }
 
+                        const q = query(collection(db, 'deals'), ...conditions);
                         const querySnapshot = await getDocs(q);
                         const dealsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
                         setDeals(dealsData);
@@ -78,7 +84,7 @@ const MyDeals = () => {
                 {deals.map((deal) => (
                     <Link to={`/deal/${deal.id}`} key={deal.id} className="deal-item">
                         <h2>{deal.projectTitle}</h2>
-                        <p>Этап: {deal.stage || 'Не указан'}</p> {/* Добавляем отображение этапа */}
+                        <p>Этап: {deal.stage || 'Не указан'}</p>
                         <p>Цена: {deal.price} руб.</p>
                         <p>Статус: {deal.status === 'completed' ? 'Завершена' : 'В процессе'}</p>
                         <p>Оплата: {deal.paymentStatus === 'frozen' ? 'Заморожена' : 'Ожидание'}</p>
