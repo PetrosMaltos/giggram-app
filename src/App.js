@@ -44,6 +44,7 @@ import CardPayment from './CardPayment';
 import EditPassword from './components/EditPassword';
 import ForgotPassword from './ForgotPassword';
 import Moderation from './Moderation';
+import FavorDetail from './components/FavorDetail';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -78,6 +79,7 @@ const App = () => {
             <Route path="/create" element={<CreateOrder />} />
             <Route path="/main" element={<Main />} />
             <Route path="/favors" element={<Favors />} />
+            <Route path="/favors/:id" element={<FavorDetail />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/users/:userId" element={<OtherProfile />} /> {/* Изменено на /users/:userId */}
             <Route path="/editprofile" element={<EditProfile />} />

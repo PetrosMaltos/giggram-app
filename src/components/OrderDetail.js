@@ -87,16 +87,21 @@ const OrderDetail = () => {
             if (userSnap.exists()) {
                 const userData = userSnap.data();
                 setUserData(userData);
-                const today = new Date().toISOString().split('T')[0];
-                const userResponsesToday = userData.responses.filter((response) => response.date.split('T')[0] === today);
-                const remainingResponses = 5 - userResponsesToday.length;
-                setRemainingResponses(remainingResponses < 0 ? 0 : remainingResponses);
+                updateRemainingResponses(userData);
             } else {
                 console.warn('Пользователь не зарегистрирован в базе данных');
             }
         } catch (error) {
             console.error('Ошибка получения данных пользователя:', error);
         }
+    };
+
+    const updateRemainingResponses = (userData) => {
+        const today = new Date().toISOString().split('T')[0];
+        const userResponsesToday = userData.responsesToday || [];
+        const responsesToday = userResponsesToday.filter((response) => response.date && response.date.split('T')[0] === today);
+        const remainingResponses = 5 - responsesToday.length;
+        setRemainingResponses(remainingResponses < 0 ? 0 : remainingResponses);
     };
 
     const handleResponseChange = (e) => {
@@ -109,6 +114,14 @@ const OrderDetail = () => {
                 alert('Вы не можете откликаться на свой собственный заказ.');
                 return;
             }
+
+            // Проверка на наличие отклика от этого пользователя на этот заказ
+            const existingResponse = responses.find(res => res.userId === userData.uid);
+            if (existingResponse) {
+                alert('Вы уже откликнулись на этот заказ.');
+                return;
+            }
+
             if (remainingResponses <= 0) {
                 alert('Вы исчерпали лимит откликов на сегодня.');
                 return;
@@ -117,11 +130,15 @@ const OrderDetail = () => {
                 const newResponse = {
                     userId: userData.uid,
                     text: response.trim(),
-                    createdAt: new Date(),
+                    createdAt: new Date().toISOString(),
                 };
                 const orderRef = doc(db, 'orders', id);
                 await updateDoc(orderRef, { responses: arrayUnion(newResponse) });
-                setRemainingResponses((prev) => prev - 1);
+
+                const userRef = doc(db, 'users', userData.uid);
+                await updateDoc(userRef, { responsesToday: arrayUnion(newResponse) });
+
+                setRemainingResponses((prev) => Math.max(prev - 1, 0));
                 setResponses((prevResponses) => [...prevResponses, newResponse]);
                 setResponse('');
                 alert('Ваш отклик отправлен!');
@@ -143,8 +160,7 @@ const OrderDetail = () => {
                 console.error('Данные заказа не найдены');
                 return;
             }
-    
-            // Создаем сделку
+
             const dealData = {
                 clientId: orderData.clientId,
                 freelancerId: response.userId,
@@ -153,27 +169,21 @@ const OrderDetail = () => {
                 paymentStatus: 'pending',
                 price: orderData.price,
                 createdAt: new Date(),
+                deadlines: orderData.deadline,
             };
-    
-            // Создаём сделку для фрилансера
+
             const freelancerDealRef = doc(db, 'deals', `${response.userId}_${id}`);
             await setDoc(freelancerDealRef, dealData);
-    
-            // Создаём сделку для заказчика
+
             const clientDealRef = doc(db, 'deals', `${orderData.clientId}_${id}`);
             await setDoc(clientDealRef, { ...dealData, freelancerId: response.userId });
-    
-            // Обновляем заказ с принятой откликом
+
             await updateDoc(orderRef, { acceptedResponse: response, status: 'in-progress' });
-    
             alert('Отклик принят, сделка создана для обоих пользователей!');
         } catch (error) {
             console.error('Ошибка принятия отклика:', error);
         }
     };
-    
-    
-    
 
     useEffect(() => {
         if (window.Telegram && window.Telegram.WebApp) {
@@ -196,18 +206,12 @@ const OrderDetail = () => {
         return <Loading />;
     }
 
-    console.log("Order:", order);
-    console.log("UserData:", userData);
-    console.log("IsUserLoggedIn:", isUserLoggedIn);
-    console.log("CreatorData:", creatorData);
-
     return (
         <div className="order-detail">
             {!order || !userData ? (
                 <Loading />
             ) : (
                 <>
-                    {/* Информация о заказе для всех пользователей */}
                     <div className="order-info">
                         <div className="client-profile">
                             <div className="client-avatar">
@@ -256,8 +260,7 @@ const OrderDetail = () => {
                         </div>
                         <div className="divider" />
                     </div>
-    
-                    {/* Логика для создателя заказа */}
+
                     {userData.uid === order.createdBy ? (
                         <div className="responses-list">
                             <h2>Отклики</h2>
@@ -276,9 +279,8 @@ const OrderDetail = () => {
                                             <div className="response-text">{res.text}</div>
                                             {order.acceptedResponse !== res && (
                                                 <button className="accept-button" onClick={() => handleAcceptResponse(res)}>
-                                                Принять отклик
-                                            </button>
-                                            
+                                                    Принять отклик
+                                                </button>
                                             )}
                                         </div>
                                     );
@@ -288,7 +290,6 @@ const OrderDetail = () => {
                             )}
                         </div>
                     ) : (
-                        /* Логика для остальных пользователей */
                         <div className="response-section">
                             {isUserLoggedIn ? (
                                 userData?.uid !== order.createdBy ? (
@@ -327,7 +328,6 @@ const OrderDetail = () => {
             )}
         </div>
     );
-    
 };
 
 export default OrderDetail;

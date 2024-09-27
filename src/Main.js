@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { collection, query, where, orderBy, limit, getDocs } from 'firebase/firestore';
+import { collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
 import { db } from './firebaseConfig';
 import './Main.css';
-import { FaSearch, FaUser } from 'react-icons/fa'; 
+import { FaSearch, FaUser } from 'react-icons/fa';
 import OrderCard from './components/OrderCard';
 import { List } from 'lucide-react';
 import Categories from './components/Categories';
@@ -55,7 +55,6 @@ const Main = () => {
   const inputRef = useRef(null);
 
   useEffect(() => {
-    // Получаем текущего пользователя
     const fetchCurrentUser = async () => {
       const auth = getAuth();
       const user = auth.currentUser;
@@ -69,23 +68,21 @@ const Main = () => {
   useEffect(() => {
     const fetchLatestOrders = async () => {
       try {
-        const ordersQuery = query(
-          collection(db, 'orders'),
-          orderBy('createdAt', 'desc'),
-          limit(3)
-        );
-        const ordersSnapshot = await getDocs(ordersQuery);
-        const orders = ordersSnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        }));
-        setLatestOrders(orders);
+         const ordersQuery = query(
+            collection(db, 'orders'),
+            orderBy('createdAt', 'desc'),
+            limit(3)
+         );
+         const ordersSnapshot = await getDocs(ordersQuery);
+         const orders = ordersSnapshot.docs
+            .map(doc => ({ id: doc.id, ...doc.data() }))
+            .filter(order => order.status === 'approved'); // Отображаем только одобренные заказы
+         setLatestOrders(orders);
       } catch (error) {
-        console.error("Ошибка при загрузке последних заказов:", error);
-        setError('Не удалось загрузить новые заказы');
+         console.error("Ошибка при загрузке последних заказов:", error);
+         setError('Не удалось загрузить новые заказы');
       }
-    };
-
+   };   
     fetchLatestOrders();
   }, []);
 
@@ -94,7 +91,7 @@ const Main = () => {
       setIsLoading(true);
       const timer = setTimeout(() => {
         handleSearch();
-      }, 300); 
+      }, 300);
       return () => clearTimeout(timer);
     } else {
       setSearchResults([]);
@@ -105,13 +102,11 @@ const Main = () => {
 
   const handleSearch = async () => {
     try {
-      // Поиск пользователей
       const usersQuery = query(
         collection(db, 'users'),
         where('username', '>=', searchQuery),
         where('username', '<=', searchQuery + '\uf8ff')
       );
-      // Поиск заказов
       const ordersQuery = query(
         collection(db, 'orders'),
         where('title', '>=', searchQuery),
@@ -132,7 +127,7 @@ const Main = () => {
         id: doc.id,
         type: 'order',
         title: doc.data().title,
-        description: doc.data().description 
+        description: doc.data().description
       }));
       const combinedResults = [...usersResults, ...ordersResults];
       setSearchResults(combinedResults);

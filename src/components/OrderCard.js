@@ -5,7 +5,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import './OrderCard.css';
 
-const OrderCard = ({ id, title, description, tags = [], createdAt, price, responses = [], views = 0, isAssigned }) => {
+const OrderCard = ({ id, title, description, tags = [], createdAt, price, responses = [], views = 0, status, isAssigned }) => {
   const [timeAgo, setTimeAgo] = useState('');
   const navigate = useNavigate();
 
@@ -13,16 +13,11 @@ const OrderCard = ({ id, title, description, tags = [], createdAt, price, respon
     if (createdAt) {
       const createdAtDate = createdAt.toDate ? createdAt.toDate() : new Date(createdAt);
 
-      console.log('CreatedAtDate:', createdAtDate); // Логирование даты для проверки
-
       const updateTimeAgo = () => {
         setTimeAgo(formatDistanceToNow(createdAtDate, { addSuffix: true, locale: ru }));
       };
 
-      // Обновление времени при загрузке
       updateTimeAgo();
-
-      // Обновляем время каждую секунду
       const timer = setInterval(updateTimeAgo, 1000);
 
       return () => clearInterval(timer);
@@ -39,12 +34,40 @@ const OrderCard = ({ id, title, description, tags = [], createdAt, price, respon
     }
   };
 
+  const getStatusClass = () => {
+    if (isAssigned) {
+      return 'executor-found';
+    }
+    switch (status) {
+      case 'executor-found':
+        return 'executor-found';
+      case 'approved':
+        return 'not-assigned';
+      default:
+        return 'not-assigned';
+    }
+  };
+
+  const getStatusText = () => {
+    if (isAssigned) {
+      return 'Исполнитель найден';
+    }
+    switch (status) {
+      case 'executor-found':
+        return 'Исполнитель найден';
+      case 'approved':
+        return 'Исполнитель не выбран';
+      default:
+        return 'Исполнитель не выбран';
+    }
+  };
+
   return (
-    <div className="order-card" onClick={handleCardClick}>
+    <div className={`order-card ${isAssigned ? 'assigned' : ''}`} onClick={handleCardClick}>
       <div className="order-header">
-        <div className={`order-status ${isAssigned ? 'assigned' : 'not-assigned'}`}>
-          {isAssigned ? <FaUserCheck /> : <FaUserTimes />}
-          <span>{isAssigned ? 'Исполнитель выбран' : 'Исполнитель не выбран'}</span>
+        <div className={`order-status ${getStatusClass()}`}>
+          {status === 'executor-found' ? <FaUserCheck /> : <FaUserTimes />}
+          <span>{getStatusText()}</span>
         </div>
         <h3 className="order-title">{title}</h3>
       </div>

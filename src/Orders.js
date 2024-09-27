@@ -23,20 +23,14 @@ const Orders = () => {
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, 'orders'), (snapshot) => {
       const orders = snapshot.docs
-        .map(doc => ({
-          id: doc.id,
-          ...doc.data(),
-          createdAt: doc.data().createdAt.toDate(),
-        }))
-        // Отображать только одобренные заказы
-        .filter(order => order.status !== 'deleted')  // или другой логичный фильтр, чтобы не показывать удаленные заказы
-        // Сортировать заказы по дате
+        .map(doc => ({ id: doc.id, ...doc.data(), createdAt: doc.data().createdAt.toDate() }))
+        // Display only approved and in-progress orders
+        .filter(order => order.status === 'approved' || order.status === 'in-progress')
+        // Sort orders by date
         .sort((a, b) => b.createdAt - a.createdAt);
-      
       setOrdersData(orders);
       setFilteredOrders(orders);
     });
-  
     return () => unsubscribe();
   }, []);
   
@@ -290,27 +284,26 @@ const Orders = () => {
         </div>
       </div>
       <div className="orders-list">
-        {currentOrders.length ? currentOrders.map(order => (
-          <OrderCard
-          key={order.id}
-          id={order.id}
-          title={order.title}
-          tags={order.tags}
-          description={order.description}
-          createdAt={order.createdAt}
-          price={order.price}
-          responses={order.responses}
-          views={order.views}
-          isAssigned={order.isAssigned}
-          status={order.status}  
-        />
-        )
-        ) : (
-          <div className="no-orders-message2">
-            Упс! На данный момент нет новых заказов. Пожалуйста, проверьте позже
-          </div>
-        )}
-      </div>
+  {currentOrders.length ? currentOrders.map(order => (
+    <OrderCard 
+      key={order.id} 
+      id={order.id} 
+      title={order.title} 
+      tags={order.tags} 
+      description={order.description} 
+      createdAt={order.createdAt} 
+      price={order.price} 
+      responses={order.responses} 
+      views={order.views} 
+      isAssigned={order.isAssigned} // Добавлено здесь
+      status={order.status} 
+    />
+  )) : (
+    <div className="no-orders-message2">
+      Упс! На данный момент нет новых заказов. Пожалуйста, проверьте позже
+    </div>
+  )}
+</div>
       <div className="pagination-controls">
         {Array.from({ length: Math.ceil(filteredOrders.length / ordersPerPage) }, (_, index) => (
           <button

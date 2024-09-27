@@ -283,6 +283,7 @@ const Favors = () => {
       <div className="favors-list">
         {filteredFavors.length ? filteredFavors.map(favor => (
          <FavorCard
+         id={favor.id}
          key={favor.id}
          title={favor.title}
          tags={favor.tags}
