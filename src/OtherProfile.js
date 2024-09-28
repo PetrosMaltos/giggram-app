@@ -49,7 +49,6 @@ const translateRole = (role) => {
   }
 };
 
-
 const OtherProfile = () => {
   const { userId } = useParams();
   const [user, setUser] = useState(null);
@@ -126,11 +125,11 @@ const OtherProfile = () => {
               <span>Архивные заказы:</span> {user.archivedOrders}
             </div>
             <div className="info-item">
-          <span>Роль:</span>
-          <span className={user.role === 'admin' ? 'role-admin' : ''}>
-            {translateRole(user.role)}
-          </span>
-        </div>
+              <span className='role-other'>Роль:</span>
+              <span className={user.role === 'admin' ? 'role-admin' : ''}>
+                {translateRole(user.role)}
+              </span>
+            </div>
           </div>
         </div>
       </div>

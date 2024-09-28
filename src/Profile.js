@@ -108,7 +108,7 @@ const Profile = () => {
   return (
     <div className="profile-page">
       <Navbar />
-      <div className="profile-content">
+      <div className="profile-content profile-content--with-margin">
         <div className="card-container">
           <img className="round" src={avatarUrl || placeholderAvatar} alt="user" />
           <h3>{user.username}</h3>

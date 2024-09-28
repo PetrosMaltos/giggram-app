@@ -88,7 +88,6 @@
     font-weight: 500;
     padding: 12px 30px;
     margin: 10px;
-    cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
   }
 
@@ -196,7 +195,12 @@
   @media (max-width: 600px) {
     .profile-content {
       padding: 10px;
+      margin-bottom: 0px;
+    }
+
+    .profile-content--with-margin {
       margin-bottom: 100px;
+      padding: 10px;
     }
 
     .card-container .round {
@@ -304,7 +308,6 @@
     color: white;
     padding: 10px;
     border-radius: 10px;
-    cursor: pointer;
     font-size: 14px;
     position: absolute;
     top: 10px;
@@ -356,5 +359,9 @@
 }
 
 .role {
+  margin-right: 5px;
+}
+
+.role-other {
   margin-right: 5px;
 }

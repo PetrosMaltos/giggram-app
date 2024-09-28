@@ -18,7 +18,6 @@ const FavorDetail = () => {
     const [timeAgo, setTimeAgo] = useState('');
     const [userData, setUserData] = useState(null);
     const [responses, setResponses] = useState([]);
-    const [userMap, setUserMap] = useState({});
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
     const [creatorData, setCreatorData] = useState(null);
 
@@ -36,14 +35,9 @@ const FavorDetail = () => {
                     setFavor(favorData);
                     setResponses(favorData.responses || []);
                     
-                    let createdAtDate;
-                    if (favorData.createdAt instanceof Date) {
-                        createdAtDate = favorData.createdAt;
-                    } else if (favorData.createdAt && favorData.createdAt.toDate) {
-                        createdAtDate = favorData.createdAt.toDate();
-                    } else {
-                        createdAtDate = new Date(favorData.createdAt);
-                    }
+                    let createdAtDate = favorData.createdAt instanceof Date ? 
+                        favorData.createdAt : favorData.createdAt.toDate();
+
                     const updateTimer = () => {
                         setTimeAgo(formatDistanceToNow(createdAtDate, { addSuffix: true, locale: ru }));
                     };
@@ -69,13 +63,9 @@ const FavorDetail = () => {
         fetchFavor();
 
         const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                setIsUserLoggedIn(true);
-                fetchUserData(user.uid);
-            } else {
-                setIsUserLoggedIn(false);
-                setUserData(null);
-            }
+            setIsUserLoggedIn(!!user);
+            if (user) fetchUserData(user.uid);
+            else setUserData(null);
         });
 
         return () => unsubscribe();
@@ -87,17 +77,13 @@ const FavorDetail = () => {
             const userSnap = await getDoc(userRef);
             if (userSnap.exists()) {
                 setUserData(userSnap.data());
-            } else {
-                console.warn('Пользователь не зарегистрирован в базе данных');
             }
         } catch (error) {
             console.error('Ошибка получения данных пользователя:', error);
         }
     };
 
-    const handleResponseChange = (e) => {
-        setResponse(e.target.value);
-    };
+    const handleResponseChange = (e) => setResponse(e.target.value);
 
     const handleSubmit = async () => {
         if (userData && response.trim()) {
@@ -197,9 +183,7 @@ const FavorDetail = () => {
                         <div className="registration-message">
                             <FaLock className="lock-icon" />
                             <h2>Пожалуйста, зарегистрируйтесь</h2>
-                            <p>
-                                Для отправки отклика на эту услугу необходимо зарегистрироваться.
-                            </p>
+                            <p>Для отправки отклика на эту услугу необходимо зарегистрироваться.</p>
                         </div>
                     )}
                 </div>

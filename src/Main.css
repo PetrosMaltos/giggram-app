@@ -93,7 +93,7 @@ html, body {
   border-radius: 30px;
   background-color: #6200ee;
   color: #121212;
-  cursor: pointer;
+  
   transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
@@ -128,7 +128,7 @@ html, body {
 /* Стиль для элементов результата поиска */
 .search-result-item {
   padding: 10px;
-  cursor: pointer;
+  
   color: #e0e0e0;
   border-bottom: 1px solid #333;
   transition: background-color 0.3s ease;

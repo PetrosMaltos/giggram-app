@@ -146,21 +146,21 @@
 
 .response-button {
   font-family: "Montserrat", sans-serif;
-  background-color: #6200ee;
+  background: linear-gradient(45deg, #6200ee, #a65bfc);
   color: #f5f5f5;
   padding: 12px 24px;
   border: none;
   border-radius: 8px;
-  cursor: pointer;
   font-size: 1rem;
+  transition: background 0.3s ease;
 }
 
 .response-button:hover {
-  background-color: #a65bfc;
+  background: linear-gradient(45deg, #a65bfc, #6200ee);
 }
 
 .response-button:active {
-  background-color: #944cfc;
+  background: linear-gradient(45deg, #944cfc, #5300c8);
 }
 
 .registration-message {
@@ -192,6 +192,7 @@
   color: #6200ee;
   margin-bottom: 10px;
 }
+
 .response-item {
   background-color: #222; /* Темный фон для откликов */
   border-radius: 8px;
@@ -201,6 +202,12 @@
   color: #f5f5f5; /* Светлый текст */
   display: flex;
   flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.response-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 
 .response-header {
@@ -210,7 +217,7 @@
 }
 
 .response-username {
-  font-weight: bold;
+  font-weight: 500;
   font-size: 1rem;
   color: #ffffff; /* Цвет имени */
 }
@@ -228,10 +235,10 @@
   color: #dadada;
 }
 
-
 .response-info {
   margin-bottom: 15px;
 }
+
 
 
 .client-avatar, .response-avatar {
@@ -261,7 +268,6 @@
   display: inline-block;
   font-size: 14px;
   margin: 4px 2px;
-  cursor: pointer;
   border-radius: 12px;
 }
 

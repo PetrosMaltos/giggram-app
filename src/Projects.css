@@ -112,7 +112,6 @@
     background: none;
     border: none;
     font-size: 24px;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -178,7 +177,6 @@
     font-weight: 500; /* Немного жирнее текст */
     font-family: 'Montserrat', sans-serif;
     text-align: center; /* Выравнивание текста по центру */
-    cursor: pointer; /* Курсор при наведении */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Улучшенная тень для глубины */
     transition: background-color 0.3s ease, transform 0.1s ease; /* Плавные переходы */
     display: flex; /* Используем flexbox для центрирования иконки и текста */
@@ -197,7 +195,6 @@
   .create-project-button:disabled {
     background-color: #d1c4e9; /* Светлый цвет для отключенной кнопки */
     color: #9e9e9e; /* Цвет текста для отключенной кнопки */
-    cursor: not-allowed; /* Курсор при отключенной кнопке */
     box-shadow: none; /* Без тени */
     opacity: 0.6; /* Немного прозрачности для обозначения отключенного состояния */
   }

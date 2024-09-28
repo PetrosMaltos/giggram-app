@@ -60,7 +60,6 @@
     border-radius: 12px; /* Округлые углы */
     background-color: #6200ee; /* Основной цвет кнопки */
     color: #ffffff; /* Цвет текста кнопки */
-    cursor: pointer;
     margin-top: 20px;
     transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; /* Плавные переходы */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Тень для кнопки */

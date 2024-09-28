@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { formatDistanceToNow } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import { AiFillStar } from 'react-icons/ai';
-import { FaDollarSign, FaEye, FaClock, FaCommentDots, FaLock } from 'react-icons/fa';
+import { FaDollarSign, FaEye, FaClock, FaCommentDots, FaLock, FaLink } from 'react-icons/fa';
 import './OrderDetail.css';
 import { db, auth } from '../firebaseConfig';
 import { setDoc, doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
@@ -36,6 +36,19 @@ const OrderDetail = () => {
                     const orderData = orderSnap.data();
                     setOrder(orderData);
                     setResponses(orderData.responses || []);
+    
+                    // Загрузка данных о пользователях, которые оставили отклики
+                    const userIds = orderData.responses.map(res => res.userId);
+                    const userMapTemp = {};
+                    for (const userId of userIds) {
+                        const userRef = doc(db, 'users', userId);
+                        const userSnap = await getDoc(userRef);
+                        if (userSnap.exists()) {
+                            userMapTemp[userId] = userSnap.data();
+                        }
+                    }
+                    setUserMap(userMapTemp);
+    
                     let createdAtDate;
                     if (orderData.createdAt instanceof Date) {
                         createdAtDate = orderData.createdAt;
@@ -64,9 +77,7 @@ const OrderDetail = () => {
                 console.error('Ошибка получения данных заказа:', error);
             }
         };
-
         fetchOrder();
-
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 setIsUserLoggedIn(true);
@@ -76,7 +87,6 @@ const OrderDetail = () => {
                 setUserData(null);
             }
         });
-
         return () => unsubscribe();
     }, [id]);
 
@@ -87,6 +97,8 @@ const OrderDetail = () => {
             if (userSnap.exists()) {
                 const userData = userSnap.data();
                 setUserData(userData);
+    
+                // Обновляем оставшиеся отклики
                 updateRemainingResponses(userData);
             } else {
                 console.warn('Пользователь не зарегистрирован в базе данных');
@@ -95,49 +107,58 @@ const OrderDetail = () => {
             console.error('Ошибка получения данных пользователя:', error);
         }
     };
+    
 
     const updateRemainingResponses = (userData) => {
         const today = new Date().toISOString().split('T')[0];
         const userResponsesToday = userData.responsesToday || [];
-        const responsesToday = userResponsesToday.filter((response) => response.date && response.date.split('T')[0] === today);
-        const remainingResponses = 5 - responsesToday.length;
+    
+        // Отклики пользователя за сегодня на этот заказ
+        const responsesForToday = userResponsesToday.filter(
+            (response) => response.date && response.date.split('T')[0] === today
+        );
+    
+        const remainingResponses = 5 - responsesForToday.length;
         setRemainingResponses(remainingResponses < 0 ? 0 : remainingResponses);
     };
+    
+    
 
     const handleResponseChange = (e) => {
         setResponse(e.target.value);
     };
-
     const handleSubmit = async () => {
         if (userData && response.trim()) {
             if (userData.uid === order.createdBy) {
                 alert('Вы не можете откликаться на свой собственный заказ.');
                 return;
             }
-
+    
             // Проверка на наличие отклика от этого пользователя на этот заказ
-            const existingResponse = responses.find(res => res.userId === userData.uid);
-            if (existingResponse) {
+            const userHasResponded = responses.some(res => res.userId === userData.uid);
+            if (userHasResponded) {
                 alert('Вы уже откликнулись на этот заказ.');
                 return;
             }
-
+    
             if (remainingResponses <= 0) {
                 alert('Вы исчерпали лимит откликов на сегодня.');
                 return;
             }
+    
             try {
                 const newResponse = {
                     userId: userData.uid,
                     text: response.trim(),
                     createdAt: new Date().toISOString(),
                 };
+    
                 const orderRef = doc(db, 'orders', id);
                 await updateDoc(orderRef, { responses: arrayUnion(newResponse) });
-
+    
                 const userRef = doc(db, 'users', userData.uid);
                 await updateDoc(userRef, { responsesToday: arrayUnion(newResponse) });
-
+    
                 setRemainingResponses((prev) => Math.max(prev - 1, 0));
                 setResponses((prevResponses) => [...prevResponses, newResponse]);
                 setResponse('');
@@ -150,6 +171,8 @@ const OrderDetail = () => {
             alert('Вы должны быть зарегистрированы и написать отклик, чтобы отправить его.');
         }
     };
+    
+    
 
     const handleAcceptResponse = async (response) => {
         try {
@@ -222,7 +245,7 @@ const OrderDetail = () => {
                                 )}
                             </div>
                             <div className="client-info">
-                                <div className="client-name">{creatorData?.username || 'Неизвестный клиент'}</div>
+                                <div className="client-name">{creatorData?.username || 'Загружаю...'}</div>
                                 <div className="client-reviews">
                                     <AiFillStar className="star-rating" />
                                     <span>4.4</span>
@@ -263,32 +286,36 @@ const OrderDetail = () => {
 
                     {userData.uid === order.createdBy ? (
                         <div className="responses-list">
-                            <h2>Отклики</h2>
-                            {responses.length > 0 ? (
-                                responses.map((res, index) => {
-                                    const createdAtDate = res.createdAt.toDate ? res.createdAt.toDate() : new Date(res.createdAt);
-                                    const username = userMap[res.userId]?.username || 'Неизвестный пользователь';
-                                    const avatar = userMap[res.userId]?.avatar || 'default-avatar.png';
-                                    return (
-                                        <div key={index} className="response-item">
-                                            <div className="response-header">
-                                                <img src={avatar} alt="User Avatar" className="response-avatar" />
-                                                <span className="response-username">{username}</span>
-                                                <span className="response-date">{formatDistanceToNow(createdAtDate, { addSuffix: true, locale: ru })}</span>
-                                            </div>
-                                            <div className="response-text">{res.text}</div>
-                                            {order.acceptedResponse !== res && (
-                                                <button className="accept-button" onClick={() => handleAcceptResponse(res)}>
-                                                    Принять отклик
-                                                </button>
-                                            )}
+                        <h2>Отклики</h2>
+                        {responses.length > 0 ? (
+                            responses.map((res, index) => {
+                                const createdAtDate = res.createdAt.toDate ? res.createdAt.toDate() : new Date(res.createdAt);
+                                const username = userMap[res.userId]?.username || 'Загружаю...';
+                                const avatar = userMap[res.userId]?.avatar || 'Загружаю...';
+                                return (
+                                    <div key={index} className="response-item">
+                                        <div className="response-header">
+                                            <img src={avatar} alt="User Avatar" className="response-avatar" />
+                                            <span className="response-username">{username}</span>
+                                            <span className="response-date">{formatDistanceToNow(createdAtDate, { addSuffix: true, locale: ru })}</span>
+                                            {/* Кнопка для перехода на профиль */}
+                                            <a href={`/users/${res.userId}`} className="profile-link">
+                                                <FaLink className="profile-icon" />
+                                            </a>
                                         </div>
-                                    );
-                                })
-                            ) : (
-                                <p>Нет откликов.</p>
-                            )}
-                        </div>
+                                        <div className="response-text">{res.text}</div>
+                                        {order.acceptedResponse !== res && (
+                                            <button className="accept-button" onClick={() => handleAcceptResponse(res)}>
+                                                Принять отклик
+                                            </button>
+                                        )}
+                                    </div>
+                                );
+                            })
+                        ) : (
+                            <p>Нет откликов.</p>
+                        )}
+                    </div>
                     ) : (
                         <div className="response-section">
                             {isUserLoggedIn ? (

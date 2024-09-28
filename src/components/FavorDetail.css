@@ -150,7 +150,6 @@
     padding: 12px 24px;
     border: none;
     border-radius: 8px;
-    cursor: pointer;
     font-size: 1rem;
   }
   
@@ -203,50 +202,7 @@
     flex-direction: column;
   }
   
-  .response-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
   
-  .response-username {
-    font-weight: bold;
-    font-size: 1rem;
-    color: #ffffff; /* Цвет имени */
-  }
-  
-  .response-date {
-    font-size: 0.9rem;
-    color: #b0b0b0;
-  }
-  
-  .response-text {
-    font-size: 1rem;
-    margin-bottom: 10px;
-    white-space: pre-wrap; /* Чтобы текст переносился и не обрезался */
-    overflow-wrap: break-word; /* Разбивать длинные слова для предотвращения переполнения */
-    color: #dadada;
-  }
-  
-  .response-info {
-    margin-bottom: 15px;
-  }
-  
-  .client-avatar, .response-avatar {
-    width: 50px; /* Установите нужный размер */
-    height: 50px; /* Установите нужный размер */
-    border-radius: 50%; /* Делает аватарку круглой */
-    overflow: hidden; /* Убирает лишнюю часть изображения */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .client-avatar img, .response-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Сохраняет соотношение сторон и заполняет контейнер */
-  }
   
   .accept-button {
     font-family: 'Montserrat', sans-serif;
@@ -259,7 +215,6 @@
     display: inline-block;
     font-size: 14px;
     margin: 4px 2px;
-    cursor: pointer;
     border-radius: 12px;
   }
   
@@ -274,3 +229,22 @@
     margin-bottom: 20px;
   }
   
+
+  .order-button {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #6200ee;
+    color: #f5f5f5;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
+.order-button:hover {
+    background-color: #a65bfc;
+}
+
+.order-button:active {
+    background-color: #944cfc;
+}
