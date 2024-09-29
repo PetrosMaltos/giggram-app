@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { db, storage } from './firebaseConfig'; // Импортируйте ваши конфигурации
+import { db, auth } from './firebaseConfig';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { FaRegClipboard, FaTag, FaDollarSign, FaListUl, FaRegEdit, FaUpload } from 'react-icons/fa';
+import { onAuthStateChanged } from 'firebase/auth';
+import { FaRegClipboard, FaTag, FaDollarSign, FaListUl, FaRegEdit, FaCalendarAlt } from 'react-icons/fa';
+import { v4 as uuidv4 } from 'uuid'; // Импортируем uuid для генерации уникальных имен файлов
 
 const CreateFavor = () => {
   const [formData, setFormData] = useState({
@@ -12,26 +13,41 @@ const CreateFavor = () => {
     category: '',
     price: '',
     tags: '',
-    image1: null,
-    image2: null,
+    deadlineValue: '',
+    deadlineUnit: 'дней',
+    projects: [{ projectUrl: '', imageUrl: '' }],
   });
-
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
+  }, []);
+
   const handleInputChange = (e) => {
-    const { name, value, files } = e.target;
-    if (files) {
-      setFormData(prev => ({ ...prev, [name]: files[0] }));
-    } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
-    }
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleProjectChange = (index, e) => {
+    const { name, value } = e.target;
+    const updatedProjects = formData.projects.map((project, i) => 
+      i === index ? { ...project, [name]: value } : project
+    );
+    setFormData(prev => ({ ...prev, projects: updatedProjects }));
+  };
+
+  const addProjectField = () => {
+    setFormData(prev => ({ ...prev, projects: [...prev.projects, { projectUrl: '', imageUrl: '' }] }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { title, description, category, price, tags, image1, image2 } = formData;
+    const { title, description, category, price, tags, deadlineValue, deadlineUnit, projects } = formData;
     const tagsArray = tags ? tags.split(',').map(tag => tag.trim()) : [];
-  
     const newFavor = {
       title,
       description,
@@ -41,49 +57,19 @@ const CreateFavor = () => {
       views: 0,
       responses: 0,
       createdAt: Timestamp.now(),
-      imagePaths: [],
-      status: 'pending' //  статус как 'pending'
+      deadline: `${deadlineValue} ${deadlineUnit}`,
+      projects,
+      status: 'pending',
+      createdBy: user.uid,
     };
-    
-  
+
     try {
-      if (image1) {
-        const image1Ref = ref(storage, `images/${image1.name}`);
-        await uploadBytes(image1Ref, image1);
-        const image1URL = await getDownloadURL(image1Ref);
-        newFavor.imagePaths.push(image1URL);
-      }
-      if (image2) {
-        const image2Ref = ref(storage, `images/${image2.name}`);
-        await uploadBytes(image2Ref, image2);
-        const image2URL = await getDownloadURL(image2Ref);
-        newFavor.imagePaths.push(image2URL);
-      }
-  
       await addDoc(collection(db, 'favors'), newFavor);
       navigate('/favors');
     } catch (error) {
       console.error('Ошибка создания услуги:', error);
     }
   };
-  
-
-  useEffect(() => {
-    if (window.Telegram && window.Telegram.WebApp) {
-      window.Telegram.WebApp.BackButton.show();
-      const handleBackButtonClick = () => window.history.back();
-      window.Telegram.WebApp.BackButton.onClick(handleBackButtonClick);
-      return () => {
-        window.Telegram.WebApp.BackButton.offClick(handleBackButtonClick);
-        window.Telegram.WebApp.BackButton.hide();
-      };
-    }
-    return () => {
-      if (window.Telegram && window.Telegram.WebApp) {
-        window.Telegram.WebApp.BackButton.hide();
-      }
-    };
-  }, []);
 
   return (
     <div className="create-order-page">
@@ -111,13 +97,45 @@ const CreateFavor = () => {
             <input type="text" name="tags" value={formData.tags} onChange={handleInputChange} />
           </label>
           <label>
-            <FaUpload /> Изображение 1
-            <input type="file" name="image1" onChange={handleInputChange} />
+            <FaCalendarAlt /> Срок выполнения
+            <div className="deadline-inputs">
+              <input type="number" name="deadlineValue" value={formData.deadlineValue} onChange={handleInputChange} required />
+              <select name="deadlineUnit" value={formData.deadlineUnit} onChange={handleInputChange} required>
+                <option value="часов">часов</option>
+                <option value="дней">дней</option>
+                <option value="недель">недель</option>
+                <option value="месяцев">месяцев</option>
+              </select>
+            </div>
           </label>
-          <label>
-            <FaUpload /> Изображение 2
-            <input type="file" name="image2" onChange={handleInputChange} />
-          </label>
+          <div>
+            <h3>Примеры работ</h3>
+            {formData.projects.map((project, index) => (
+              <div key={index} className="project-field">
+                <label>
+                  URL проекта
+                  <input
+                    type="text"
+                    name="projectUrl"
+                    value={project.projectUrl}
+                    onChange={(e) => handleProjectChange(index, e)}
+                    required
+                  />
+                </label>
+                <label>
+                  URL изображения
+                  <input
+                    type="text"
+                    name="imageUrl"
+                    value={project.imageUrl}
+                    onChange={(e) => handleProjectChange(index, e)}
+                    required
+                  />
+                </label>
+              </div>
+            ))}
+            <button type="button" onClick={addProjectField}>Добавить проект</button>
+          </div>
           <button type="submit" className="submit-button">Создать услугу!</button>
         </form>
       </div>
