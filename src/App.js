@@ -1,5 +1,6 @@
+// App.js
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, useNavigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import WelcomeScreen from './WelcomeScreen';
 import Main from './Main';
 import Loading from './components/Loading';
@@ -44,106 +45,75 @@ import EditPassword from './components/EditPassword';
 import ForgotPassword from './ForgotPassword';
 import Moderation from './Moderation';
 import FavorDetail from './components/FavorDetail';
-import { AppProvider, useAppContext } from './AppContext';
 
 const App = () => {
-    const [loading, setLoading] = useState(true);
-    const { fetchOrders } = useOrderStore(state => ({
-        fetchOrders: state.fetchOrders,
-    }));
-
-    useEffect(() => {
-        if (window.Telegram && window.Telegram.WebApp) {
-            window.Telegram.WebApp.ready();
-            window.Telegram.WebApp.setHeaderColor('#000000');
-        }
-
-        const timer = setTimeout(() => {
-            setLoading(false);
-            fetchOrders(); // Загрузка заказов при старте приложения
-        }, 3000);
-
-        return () => clearTimeout(timer);
-    }, [fetchOrders]);
-
-    return (
-        <UserProvider> {/* Обернули приложение в UserProvider */}
-            <AppProvider> {/* Обернули приложение в AppProvider */}
-                <Router>
-                    {loading ? (
-                        <Loading />
-                    ) : (
-                        <AppRoutes />
-                    )}
-                </Router>
-            </AppProvider>
-        </UserProvider>
-    );
-};
-
-const AppRoutes = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { hasVisited, setStartAppParam } = useAppContext();
+  const [loading, setLoading] = useState(true);
+  const { fetchOrders } = useOrderStore(state => ({
+    fetchOrders: state.fetchOrders,
+  }));
 
   useEffect(() => {
-      const urlParams = new URLSearchParams(location.search);
-      const startAppParam = urlParams.get('startapp');
+    if (window.Telegram && window.Telegram.WebApp) {
+      window.Telegram.WebApp.ready();
+      window.Telegram.WebApp.setHeaderColor('#000000');
+    }
 
-      if (startAppParam) {
-          setStartAppParam(startAppParam);
-          const [prefix, id] = startAppParam.split('_');
-          if (prefix === 'favors' && id) {
-              navigate(`/favors/${id}`);
-          }
-      }
+    const timer = setTimeout(() => {
+      setLoading(false);
+      fetchOrders(); // Загрузка заказов при старте приложения
+    }, 3000);
 
-      // Перенаправление на главную страницу, если пользователь уже был на WelcomeScreen
-      if (hasVisited) {
-          navigate('/main');
-      }
-  }, [location, navigate, setStartAppParam, hasVisited]);
+    return () => clearTimeout(timer);
+  }, [fetchOrders]);
 
   return (
-      <Routes>
-          <Route path="/" element={<WelcomeScreen />} />
-          <Route path="/orders" element={<Orders orders={ordersData} />} />
-          <Route path="/orders/:id" element={<OrderDetail orders={ordersData} />} />
-          <Route path="/create" element={<CreateOrder />} />
-          <Route path="/main" element={<Main />} />
-          <Route path="/favors" element={<Favors />} />
-          <Route path="/favors/:id" element={<FavorDetail />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/users/:userId" element={<OtherProfile />} /> {/* Изменено на /users/:userId */}
-          <Route path="/editprofile" element={<EditProfile />} />
-          <Route path="*" element={<NotFound />} />
-          <Route path="/categories" element={<Categories />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/specialists" element={<Specialists />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/projects/:id" element={<ProjectPage />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/help" element={<Help />} />
-          <Route path="/my-orders" element={<MyOrders />} />
-          <Route path="/my-projects" element={<MyProjects />} />
-          <Route path="/my-responses" element={<MyResponses />} />
-          <Route path="/my-favors" element={<MyFavors />} />
-          <Route path="/create-favor" element={<CreateFavor />} />
-          <Route path="/create-project" element={<CreateProject />} />
-          <Route path="/subscribe" element={<Subscribe />} />
-          <Route path="/my-invites" element={<MyInvites />} />
-          <Route path="/my-deals" element={<MyDeals />} />
-          <Route path="/deal/:dealId" element={<DealDetail />} />
-          <Route path="/deal/:dealId/work" element={<Work />} />
-          <Route path="/deal/:dealId/review" element={<Review />} />
-          <Route path="/deal/:dealId/payment" element={<Payment />} />
-          <Route path="/deal/:dealId/card-payment" element={<CardPayment />} />
-          <Route path="/editpassword" element={<EditPassword />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/moderation" element={<Moderation />} />
-      </Routes>
+    <UserProvider> {/* Обернули приложение в UserProvider */}
+      <Router>
+        {loading ? (
+          <Loading />
+        ) : (
+          <Routes>
+            <Route path="/" element={<WelcomeScreen />} />
+            <Route path="/orders" element={<Orders orders={ordersData} />} />
+            <Route path="/orders/:id" element={<OrderDetail orders={ordersData} />} />
+            <Route path="/create" element={<CreateOrder />} />
+            <Route path="/main" element={<Main />} />
+            <Route path="/favors" element={<Favors />} />
+            <Route path="/favors/:id" element={<FavorDetail />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/users/:userId" element={<OtherProfile />} /> {/* Изменено на /users/:userId */}
+            <Route path="/editprofile" element={<EditProfile />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="/categories" element={<Categories />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/specialists" element={<Specialists />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/:id" element={<ProjectPage />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/help" element={<Help />} />
+            <Route path="/my-orders" element={<MyOrders />} />
+            <Route path="/my-projects" element={<MyProjects />} />
+            <Route path="/my-responses" element={<MyResponses />} />
+            <Route path="/my-favors" element={<MyFavors />} />
+            <Route path="/create-favor" element={<CreateFavor />} />
+            <Route path="/create-project" element={<CreateProject />} />
+            <Route path="/subscribe" element={<Subscribe />} />
+            <Route path="/my-invites" element={<MyInvites />} />
+            <Route path="/my-deals" element={<MyDeals />} />
+            <Route path="/deal/:dealId" element={<DealDetail />} />
+            <Route path="/deal/:dealId/work" element={<Work />} />
+            <Route path="/deal/:dealId/review" element={<Review />} />
+            <Route path="/deal/:dealId/payment" element={<Payment />} />
+            <Route path="/deal/:dealId/card-payment" element={<CardPayment />} />
+            <Route path="/editpassword" element={<EditPassword />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/moderation" element={<Moderation />} />
+          </Routes>
+        )}
+      </Router>
+    </UserProvider>
   );
 };
 
