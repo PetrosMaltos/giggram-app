@@ -43,10 +43,10 @@
 }
 
 .order-title {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   margin: 0;
   color: #e0e0e0;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .order-description {
@@ -56,7 +56,6 @@
   white-space: pre-wrap; /* Чтобы текст переносился и не обрезался */
   overflow-wrap: break-word; /* Разбивать длинные слова для предотвращения переполнения */
 }
-
 
 .order-details {
   display: flex;
@@ -155,9 +154,6 @@
   transition: background 0.3s ease;
 }
 
-.response-button:hover {
-  background: linear-gradient(45deg, #a65bfc, #6200ee);
-}
 
 .response-button:active {
   background: linear-gradient(45deg, #944cfc, #5300c8);
@@ -183,9 +179,6 @@
   text-decoration: none;
 }
 
-.registration-message a:hover {
-  text-decoration: underline;
-}
 
 .lock-icon {
   font-size: 2rem;
@@ -194,7 +187,8 @@
 }
 
 .response-item {
-  background-color: #222; /* Темный фон для откликов */
+  border: 2px solid #525252;
+  background-color: #2b2b2b; /* Темный фон для откликов */
   border-radius: 8px;
   padding: 15px;
   margin-bottom: 15px;
@@ -205,9 +199,9 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.response-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+.response-item a {
+  margin-top: 5px;
+  text-decoration-line: none;
 }
 
 .response-header {
@@ -217,12 +211,14 @@
 }
 
 .response-username {
+  cursor: none;
   font-weight: 500;
   font-size: 1rem;
   color: #ffffff; /* Цвет имени */
 }
 
 .response-date {
+  margin-top: 5px;
   font-size: 0.9rem;
   color: #b0b0b0;
 }
@@ -238,8 +234,6 @@
 .response-info {
   margin-bottom: 15px;
 }
-
-
 
 .client-avatar, .response-avatar {
   width: 50px; /* Установите нужный размер */
@@ -257,28 +251,90 @@
   object-fit: cover; /* Сохраняет соотношение сторон и заполняет контейнер */
 }
 
+.response-buttons {
+  display: flex;
+  width: 100%;
+}
+
+.accept-button, .reject-button-response {
+  flex: 1;
+  padding: 10px 0;
+  border: none;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
 .accept-button {
+  background: linear-gradient(#744dff, #6200EE);
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  margin-right: 5px;
+  background-color: #6200ee;
+  color: white;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+
+
+.reject-button-response {
+  font-weight: 500;
+  font-family: 'Montserrat', sans-serif;
+  background: linear-gradient(#ff4d4d, #f12828);
+  color: white;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+
+
+.response-reply {
+  font-family: 'Montserrat', sans-serif;
+  margin-top: 10px;
+}
+
+.reply-textarea {
+  font-family: 'Montserrat', sans-serif;
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #444;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  background-color: #333;
+  color: #f5f5f5;
+}
+
+.reply-button {
   font-family: 'Montserrat', sans-serif;
   background-color: #6200ee;
   color: white;
   border: none;
   padding: 10px 20px;
+  border-radius: 8px;
+  display: block;
+  margin: 0px auto; /* Центрирование кнопки */
+}
+
+
+
+.reply-container {
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  max-height: 0;
+}
+
+.reply-container.open {
+  max-height: 200px; /* Достаточно большое значение для отображения содержимого */
+}
+
+.reply-toggle {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #3d3d3d;
+  color: rgb(207, 207, 207);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  display: block;
+  margin: 10px auto; /* Центрирование кнопки */
   text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  margin: 4px 2px;
-  border-radius: 12px;
 }
-
-.accept-button:active {
-  background-color: #5300c8;
-}
-
-.responses {
-  color: #444444;
-  font-weight: 600;
-  font-size: 15px;
-  margin-bottom: 20px;
-}
-

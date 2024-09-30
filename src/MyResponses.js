@@ -76,25 +76,25 @@ const MyResponses = () => {
 
   return (
     <div className="my-responses-container">
-      <div className="invites-header">
+      <div className="invites-header-1">
       <h1>Мои отклики</h1>
       </div>
       {loading ? (
-        <div className="empty-state">Загрузка...</div>
+        <div className="empty-state-1">Загрузка...</div>
       ) : error ? (
-        <div className="empty-state">{error}</div>
+        <div className="empty-state-1">{error}</div>
       ) : responses.length === 0 ? (
-        <div className="empty-state">У вас пока нет откликов.</div>
+        <div className="empty-state-1">У вас пока нет откликов.</div>
       ) : (
-        <ul className="response-list">
+        <ul className="response-list-1">
         {responses.map((response, index) => (
-          <li key={index} className="response-item">
+          <li key={index} className="response-item-1">
             <p>
               <strong>Заказ:</strong> 
               <a href={`/orders/${response.orderId}`}>{response.projectName}</a>
             </p>
             <p><strong>Отклик:</strong> {response.responseText}</p>
-            <p className="response-date"><strong>Дата:</strong> {response.date.toLocaleString()}</p>
+            <p className="response-date-1"><strong>Дата:</strong> {response.date.toLocaleString()}</p>
           </li>
         ))}
       </ul>

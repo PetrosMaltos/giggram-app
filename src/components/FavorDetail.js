@@ -12,111 +12,121 @@ import Loading from './Loading';
 import { CiShare1 } from "react-icons/ci";
 
 const FavorDetail = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [favor, setFavor] = useState(null);
-  const [timeAgo, setTimeAgo] = useState('');
-  const [creatorData, setCreatorData] = useState(null);
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const [favor, setFavor] = useState(null);
+    const [timeAgo, setTimeAgo] = useState('');
+    const [creatorData, setCreatorData] = useState(null);
 
-  useEffect(() => {
-    const fetchFavor = async () => {
-      if (!id) {
-        console.error('ID услуги не найден');
-        return;
-      }
-      try {
-        const favorRef = doc(db, 'favors', id);
-        const favorSnap = await getDoc(favorRef);
-        if (favorSnap.exists()) {
-          const favorData = favorSnap.data();
-          setFavor(favorData);
-          let createdAtDate = favorData.createdAt instanceof Date ? favorData.createdAt : favorData.createdAt.toDate();
-          const updateTimer = () => {
-            setTimeAgo(formatDistanceToNow(createdAtDate, { addSuffix: true, locale: ru }));
-          };
-          updateTimer();
-          const timer = setInterval(updateTimer, 60000);
-          if (favorData.createdBy) {
-            const creatorRef = doc(db, 'users', favorData.createdBy);
-            const creatorSnap = await getDoc(creatorRef);
-            if (creatorSnap.exists()) {
-              setCreatorData(creatorSnap.data());
+    useEffect(() => {
+        const fetchFavor = async () => {
+            if (!id) {
+                console.error('ID услуги не найден');
+                return;
             }
-          }
-          return () => clearInterval(timer);
-        } else {
-          console.error('Услуга не найдена');
-        }
-      } catch (error) {
-        console.error('Ошибка получения данных услуги:', error);
-      }
+            try {
+                const favorRef = doc(db, 'favors', id);
+                const favorSnap = await getDoc(favorRef);
+                if (favorSnap.exists()) {
+                    const favorData = favorSnap.data();
+                    setFavor(favorData);
+                    let createdAtDate = favorData.createdAt instanceof Date ? favorData.createdAt : favorData.createdAt.toDate();
+                    const updateTimer = () => {
+                        setTimeAgo(formatDistanceToNow(createdAtDate, { addSuffix: true, locale: ru }));
+                    };
+                    updateTimer();
+                    const timer = setInterval(updateTimer, 60000);
+                    if (favorData.createdBy) {
+                        const creatorRef = doc(db, 'users', favorData.createdBy);
+                        const creatorSnap = await getDoc(creatorRef);
+                        if (creatorSnap.exists()) {
+                            setCreatorData(creatorSnap.data());
+                        }
+                    }
+                    return () => clearInterval(timer);
+                } else {
+                    console.error('Услуга не найдена');
+                }
+            } catch (error) {
+                console.error('Ошибка получения данных услуги:', error);
+            }
+        };
+        fetchFavor();
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                navigate('/login');
+            }
+        });
+        return () => unsubscribe();
+    }, [id, navigate]);
+
+    const handleShareClick = () => {
+        const telegramLink = `https://t.me/GigGram_bot?startapp=favors_${id}`;
+        navigator.clipboard.writeText(telegramLink).then(() => {
+            alert('Ссылка скопирована в буфер обмена!');
+        }).catch((error) => {
+            console.error('Ошибка копирования ссылки:', error);
+            alert('Не удалось скопировать ссылку.');
+        });
     };
-    fetchFavor();
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (!user) {
-        navigate('/login');
-      }
-    });
-    return () => unsubscribe();
-  }, [id, navigate]);
 
-  if (!favor) {
-    return <Loading />;
-  }
+    if (!favor) {
+        return <Loading />;
+    }
 
-  return (
-    <div className="favor-detail">
-      <div className="favor-info">
-        <div className="header">
-          <div className="client-profile">
-            <img src={creatorData?.avatar || 'default-avatar.png'} alt="Аватар" className="client-avatar" />
-            <div className="client-info">
-              <div className="client-name">{creatorData?.username || 'Загружаю...'}</div>
-              <div className="client-reviews">
-                <AiFillStar className="star-rating" />
-                <span>4.4</span>
-              </div>
+    return (
+        <div className="favor-detail">
+            <div className="favor-info">
+                <div className="header">
+                    <div className="client-profile">
+                        <img src={creatorData?.avatar || 'default-avatar.png'} alt="Аватар" className="client-avatar" />
+                        <div className="client-info">
+                            <div className="client-name">{creatorData?.username || 'Загружаю...'}</div>
+                            <div className="client-reviews">
+                                <AiFillStar className="star-rating" />
+                                <span>4.4</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a className="share-icon" onClick={handleShareClick}>
+                        <CiShare1 />
+                    </a>
+                </div>
+                <h1 className="favor-title">{favor.title}</h1>
+                <p className="favor-description">{favor.description}</p>
+                <div className="favor-details">
+                    <div className="favor-info-item">
+                        <FaDollarSign className="favor-icon" />
+                        <span className="favor-price">{favor.price} руб.</span>
+                    </div>
+                    <div className="favor-info-item">
+                        <FaEye className="favor-icon" />
+                        <span className="favor-views">{favor.views || 0} просмотров</span>
+                    </div>
+                    <div className="favor-info-item">
+                        <FaClock className="favor-icon" />
+                        <span className="favor-time">{timeAgo}</span>
+                    </div>
+                    <div className="favor-info-item">
+                        <FaCalendarAlt className="favor-icon" />
+                        <span className="favor-deadline">Срок выполнения: {favor.deadline}</span>
+                    </div>
+                </div>
+                <button className="order-button">Заказать услугу</button>
+                <div className="divider" />
             </div>
-          </div>
-          <a href={`/favors/${id}`} className="share-icon">
-            <CiShare1 />
-          </a>
+            <div className="favor-projects-section">
+                <h2>Пример работы</h2>
+                <div className="favor-projects">
+                    {favor.projects && favor.projects.map((project, index) => (
+                        <a key={index} href={`/projects/${project.id}`} target="_blank" rel="noopener noreferrer">
+                            <img src={project.imageUrl} alt={`Проект ${index + 1}`} className="favor-project-image" />
+                        </a>
+                    ))}
+                </div>
+            </div>
         </div>
-        <h1 className="favor-title">{favor.title}</h1>
-        <p className="favor-description">{favor.description}</p>
-        <div className="favor-details">
-          <div className="favor-info-item">
-            <FaDollarSign className="favor-icon" />
-            <span className="favor-price">{favor.price} руб.</span>
-          </div>
-          <div className="favor-info-item">
-            <FaEye className="favor-icon" />
-            <span className="favor-views">{favor.views || 0} просмотров</span>
-          </div>
-          <div className="favor-info-item">
-            <FaClock className="favor-icon" />
-            <span className="favor-time">{timeAgo}</span>
-          </div>
-          <div className="favor-info-item">
-            <FaCalendarAlt className="favor-icon" />
-            <span className="favor-deadline">Срок выполнения: {favor.deadline}</span>
-          </div>
-        </div>
-        <button className="order-button">Заказать услугу</button>
-        <div className="divider" />
-      </div>
-      <div className="favor-projects-section">
-        <h2>Пример работы</h2>
-        <div className="favor-projects">
-          {favor.projects && favor.projects.map((project, index) => (
-            <a key={index} href={`/projects/${project.id}`} target="_blank" rel="noopener noreferrer">
-              <img src={project.imageUrl} alt={`Проект ${index + 1}`} className="favor-project-image" />
-            </a>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+    );
 };
 
-export default FavorDetail; 
+export default FavorDetail;

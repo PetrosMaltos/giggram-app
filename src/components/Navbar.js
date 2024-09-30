@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Home, List, Mail, User, Settings, HelpCircle, Hand, Users, Briefcase } from 'lucide-react';
+import { Home, List, User, Settings, HelpCircle, Hand, Users, Briefcase } from 'lucide-react';
 import './Navbar.css';
 
 const NAV_ITEMS = [
@@ -24,31 +24,42 @@ const Navbar = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    // Scroll to the active tab if it's out of view
-    const activeElement = document.querySelector(`.nav-item.active`);
+    const activeElement = document.querySelector('.nav-item.active');
     if (activeElement) {
       activeElement.scrollIntoView({ behavior: 'smooth', inline: 'center' });
     }
   }, [active]);
 
+  const navItems = useMemo(() => NAV_ITEMS, []);
+
   return (
     <nav className="navbar" aria-label="Main navigation">
       <div className="nav-wrapper">
-        {NAV_ITEMS.map(({ to, icon, text, key }) => (
-          <Link
+        {navItems.map(({ to, icon, text, key }) => (
+          <NavItem
             key={key}
             to={to}
-            className={`nav-item ${active === key ? 'active' : ''}`}
+            icon={icon}
+            text={text}
+            isActive={active === key}
             onClick={() => setActive(key)}
-            aria-current={active === key ? 'page' : undefined}
-          >
-            {icon}
-            <span className="nav-text">{text}</span>
-          </Link>
+          />
         ))}
       </div>
     </nav>
   );
 };
+
+const NavItem = ({ to, icon, text, isActive, onClick }) => (
+  <Link
+    to={to}
+    className={`nav-item ${isActive ? 'active' : ''}`}
+    onClick={onClick}
+    aria-current={isActive ? 'page' : undefined}
+  >
+    {icon}
+    <span className="nav-text">{text}</span>
+  </Link>
+);
 
 export default Navbar;
